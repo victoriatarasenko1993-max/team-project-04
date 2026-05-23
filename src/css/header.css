@@ -1,44 +1,133 @@
-.header {
-  padding: 20px 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-.nav {
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+/* CONTAINER */
+
+.container {
+  width: 100%;
+
+  padding-left: 20px;
+  padding-right: 20px;
+
+  margin: 0 auto;
+}
+
+/* HEADER */
+
+header {
+  width: 100%;
+}
+
+.header-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
-.nav-logo {
+
+/* LOGO */
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* NAVIGATION */
+
+.nav-list {
+  display: none;
+
+  align-items: center;
+  gap: 32px;
+
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* LINKS */
+
+.nav-list a,
+.shop-btn {
+  text-decoration: none;
+
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: #080c0c;
+}
+
+/* BUTTON */
+
+.shop-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  padding: 8px 20px;
+
+  background-color: #f19898;
+  border-radius: 30px;
 }
-.nav-list {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 40px;
-}
-.nav-link {
-  position: relative;
+
+/* BURGER */
+
+.burger-btn {
   display: block;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: 200ms ease-in;
+
+  padding: 0;
+
+  border: none;
+  background-color: transparent;
+
+  cursor: pointer;
 }
-.nav-link:hover,
-.nav-link:focus {
-  color: #747bff;
+
+/* TABLET */
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: 16px;
+  }
+
+  .shop-btn {
+    display: inline-flex;
+  }
+
+  .burger-btn {
+    display: none;
+  }
 }
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(100%);
-  width: 110%;
-  height: 4px;
-  border-radius: 4px;
-  transform-origin: center;
-  animation: stretch 400ms cubic-bezier(0.68, -0.55, 0.27, 1.55) 200ms both;
-}
-.nav-link.active::after {
-  background: #747bff;
+
+/* DESKTOP */
+
+@media screen and (min-width: 1440px) {
+  .container {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
 }
