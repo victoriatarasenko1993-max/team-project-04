@@ -1,0 +1,131 @@
+.icon {
+    stroke: currentColor;
+}
+
+.about {
+    padding: 64px 0;
+}
+
+.about-content {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.about-title {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 36px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+}
+
+.about-text {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.about-gallery-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.about-gallery-item img {
+    width: 100%;
+    height: 248px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.about-swiper {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .about-gallery-mobile {
+        display: none;
+    }
+
+    .about-swiper {
+        display: block;
+        position: relative;
+        padding-bottom: 48px
+    }
+
+    .swiper-slide img {
+        width: 100%;
+        height: 252px;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .about {
+        padding: 100px 0;
+    }
+
+    .swiper-slide img {
+        height: 478px;
+    }
+
+
+.about-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+    background: red;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.about-btn:hover {
+    background: #f3f3f3;
+}
+
+.about-btn-prev {
+    left: -20px;
+}
+
+.about-btn-next {
+    right: -20px;
+}
+
+.about-btn.swiper-button-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+ .swiper-pagination {
+     position: static;
+     /* ⬅️ під слайдером */
+     margin-top: 16px;
+     display: flex;
+     justify-content: center;
+     gap: 8px;
+ }
+
+ .swiper-pagination-bullet {
+     width: 8px;
+     height: 8px;
+     background: #ccc;
+     opacity: 1;
+     border-radius: 50%;
+ }
+
+ .swiper-pagination-bullet-active {
+     background: #000;
+ }
+}
