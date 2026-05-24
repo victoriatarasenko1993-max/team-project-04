@@ -1,80 +1,55 @@
-// import Swiper from 'swiper';
-// import { Navigation, Pagination } from 'swiper/modules';
-
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
-
-// let aboutSwiper = null;
-
-// const breakpoint = window.matchMedia('(min-width: 768px)');
-
-// function initAboutSwiper() {
-//   if (breakpoint.matches && !aboutSwiper) {
-//     aboutSwiper = new Swiper('.about-swiper', {
-//       modules: [Navigation, Pagination],
-
-//       slidesPerView: 2,
-//       spaceBetween: 24,
-//       speed: 700,
-
-//       navigation: {
-//         nextEl: '.about-btn-next',
-//         prevEl: '.about-btn-prev',
-//       },
-
-//       pagination: {
-//         el: '.swiper-pagination',
-//         clickable: true,
-//       },
-
-//       breakpoints: {
-//         1440: {
-//           spaceBetween: 24,
-//         },
-//       },
-//     });
-//   }
-
-//   if (!breakpoint.matches && aboutSwiper) {
-//     aboutSwiper.destroy(true, true);
-//     aboutSwiper = null;
-//   }
-// }
-
-// initAboutSwiper();
-// window.addEventListener('resize', initAboutSwiper);
-
 import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 let aboutSwiper = null;
 
 const breakpoint = window.matchMedia('(min-width: 768px)');
 
 function enableSwiper() {
-  aboutSwiper = new Swiper('.about-swiper', {
-    modules: [Navigation, Pagination],
+  const swiperEl = document.querySelector('.about-swiper');
+  if (!swiperEl) return;
+
+  aboutSwiper = new Swiper(swiperEl, {
+    modules: [Navigation],
 
     slidesPerView: 2,
-    slidesPerGroup: 1, 
+    slidesPerGroup: 1,
     spaceBetween: 24,
     speed: 700,
+    loop: false,
 
     navigation: {
       nextEl: '.about-btn-next',
       prevEl: '.about-btn-prev',
-    },
-
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
+      disabledClass: 'is-disabled',
     },
   });
+
+  const bullets = document.querySelectorAll('.about-pagination-bullet');
+
+  function setActive(index) {
+    bullets.forEach((b, i) => {
+      b.classList.toggle('about-pagination-bullet-active', i === index);
+    });
+  }
+
+  bullets.forEach((bullet) => {
+    bullet.addEventListener('click', () => {
+      const index = Number(bullet.dataset.index);
+
+      aboutSwiper.slideTo(index);
+      setActive(index);
+    });
+  });
+
+  aboutSwiper.on('slideChange', () => {
+    setActive(aboutSwiper.activeIndex);
+  });
+
+  setActive(aboutSwiper.activeIndex);
 }
 
 function initAboutSwiper() {
@@ -89,4 +64,4 @@ function initAboutSwiper() {
 }
 
 initAboutSwiper();
-window.addEventListener('resize', initAboutSwiper);
+breakpoint.addEventListener('change', initAboutSwiper);

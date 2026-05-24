@@ -1,7 +1,3 @@
-.icon {
-    stroke: currentColor;
-}
-
 .about {
     padding: 64px 0;
 }
@@ -16,11 +12,11 @@
     font-size: 36px;
     line-height: 1.2;
     letter-spacing: -0.01em;
-    margin-bottom: 4px;
+    margin-bottom: 24px;
 }
 
 .about-text {
-    max-width: 700px;
+    max-width: 767px;
     margin: 0 auto;
     font-size: 18px;
     line-height: 1.6;
@@ -39,96 +35,155 @@
     border-radius: 16px;
 }
 
-.about-swiper {
+.about-swiper-wrap {
     display: none;
 }
 
 @media screen and (min-width: 768px) {
+
     .about-gallery-mobile {
         display: none;
     }
 
-    .about-swiper {
-        display: block;
-        position: relative;
-
+    .about-nav-icon {
+        fill: currentColor;
+        stroke: currentColor;
     }
-    .swiper-wraper {
+
+    .about-swiper-wrap {
+        display: block;
+    }
+
+   .about-swiper-inner {
+        position: relative;
         margin-bottom: 48px;
+    }
+
+    .about-swiper {
+        overflow: hidden;
+        border-radius: 16px;
+    }
+
+    .about-swiper .swiper-wrapper {
+        align-items: stretch;   
+    }
+
+    .swiper-slide {
+        height: auto;
     }
 
     .swiper-slide img {
         width: 100%;
-        height: 252px;
+        height: 100%;
+        aspect-ratio: 644 / 478;
+        height: auto;
         object-fit: cover;
         border-radius: 16px;
+        display: block;
     }
 
-.swiper-pagination {
-    position: static;
-    margin-top: 48px;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-}
+    .about-nav-icon {
+        fill: currentColor;
+        stroke: currentColor;
+    }
 
-.swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    background: #ccc;
-    opacity: 1;
-    border-radius: 50%;
-}
+    .about-btn {
+        position: absolute;
+        top: 50%;
+        z-index: 10;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #080c0c;
+        border-radius: 50%;
+        background-color: #ffffff;
+        color: #080c0c;
+    
+        transition:
+        background-color 250ms ease,
+        opacity 250ms ease,
+        transform 250ms ease;
+    }
 
-.swiper-pagination-bullet-active {
-    background: #000;
-}
+    .about-btn:hover,
+    .about-btn:focus {
+        background-color: #f3f3f3;
+        cursor: pointer;
+    }
+    
+    .about-btn-prev {
+        left: 0;
+        transform: translate(-50%, -50%);
+    }
+    
+    .about-btn-next {
+        right: 0;
+        transform: translate(50%, -50%);
+    }
+    
+    .about-btn:hover,
+    .about-btn:focus {
+        background: #f19898;
+        cursor: pointer;
+    }
+
+    .about-btn:active {
+        background: #c07979;
+    }
+
+    .about-btn.is-disabled,
+    .about-btn:disabled,
+    .about-btn.swiper-button-disabled {
+        background: #f5fdfd;
+        opacity: 0.2;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    .about-pagination {
+        position: static !important;;
+        margin-top: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .about-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        background: #c4c7c7;
+        opacity: 1;
+        border-radius: 50%;
+        cursor: pointer;
+
+        transition: background-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .about-pagination-bullet:hover,
+    .about-pagination-bullet:focus {
+        cursor: pointer;
+        transform: scale(1.15);
+    }
+        
+    .about-pagination-bullet-active {
+        background-color: #080c0c;
+    }
 }
 
 @media screen and (min-width: 1440px) {
+
     .about {
         padding: 100px 0;
     }
 
-    .swiper-slide img {
-        height: 478px;
+    .about-title {
+    font-size: 48px;
     }
 
-
-.about-btn {
-    width: 48px;
-    height: 48px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    border: 1px solid #000;
-    background: #fff;
-
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-
-    cursor: pointer;
-}
-
-.about-btn:hover {
-    background: #f3f3f3;
-}
-
-.about-btn-prev {
-    left: -60px;
-}
-
-.about-btn-next {
-    right: -60px;
-}
-
-.about-btn.swiper-button-disabled {
-    opacity: 0.4;
-    pointer-events: none;
-}
-
+    .swiper-slide img {
+        aspect-ratio: 644 / 478;
+    }
 }
