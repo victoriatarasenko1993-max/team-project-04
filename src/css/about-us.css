@@ -8,7 +8,7 @@
 
 .about-content {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 }
 
 .about-title {
@@ -16,7 +16,7 @@
     font-size: 36px;
     line-height: 1.2;
     letter-spacing: -0.01em;
-    margin-bottom: 24px;
+    margin-bottom: 4px;
 }
 
 .about-text {
@@ -51,7 +51,10 @@
     .about-swiper {
         display: block;
         position: relative;
-        padding-bottom: 48px
+
+    }
+    .swiper-wraper {
+        margin-bottom: 48px;
     }
 
     .swiper-slide img {
@@ -60,6 +63,26 @@
         object-fit: cover;
         border-radius: 16px;
     }
+
+.swiper-pagination {
+    position: static;
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    opacity: 1;
+    border-radius: 50%;
+}
+
+.swiper-pagination-bullet-active {
+    background: #000;
+}
 }
 
 @media screen and (min-width: 1440px) {
@@ -73,22 +96,22 @@
 
 
 .about-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     width: 48px;
     height: 48px;
-
-    border: none;
-    border-radius: 50%;
-    background: red;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    border-radius: 50%;
+    border: 1px solid #000;
+    background: #fff;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .about-btn:hover {
@@ -96,11 +119,11 @@
 }
 
 .about-btn-prev {
-    left: -20px;
+    left: -60px;
 }
 
 .about-btn-next {
-    right: -20px;
+    right: -60px;
 }
 
 .about-btn.swiper-button-disabled {
@@ -108,24 +131,4 @@
     pointer-events: none;
 }
 
- .swiper-pagination {
-     position: static;
-     /* ⬅️ під слайдером */
-     margin-top: 16px;
-     display: flex;
-     justify-content: center;
-     gap: 8px;
- }
-
- .swiper-pagination-bullet {
-     width: 8px;
-     height: 8px;
-     background: #ccc;
-     opacity: 1;
-     border-radius: 50%;
- }
-
- .swiper-pagination-bullet-active {
-     background: #000;
- }
 }
