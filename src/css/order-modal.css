@@ -279,4 +279,8 @@ body.modal-open {
         max-width: 295px;
         height: 44px;
     }
+    .order-form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 }
