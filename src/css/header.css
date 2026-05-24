@@ -13,18 +13,9 @@ body {
   min-width: 320px;
 }
 
-/* CONTAINER */
-
 .container {
   width: 100%;
-
-  padding-left: 20px;
-  padding-right: 20px;
-
-  margin: 0 auto;
 }
-
-/* HEADER */
 
 header {
   width: 100%;
@@ -34,12 +25,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding-top: 16px;
   padding-bottom: 16px;
 }
-
-/* LOGO */
 
 .logo-box {
   display: flex;
@@ -47,68 +35,75 @@ header {
   gap: 10px;
 }
 
-/* NAVIGATION */
-
 .nav-list {
   display: none;
-
   align-items: center;
   gap: 32px;
-
   list-style: none;
-
   margin: 0;
   padding: 0;
 }
 
-/* LINKS */
-
-.nav-list a,
+.nav-link,
 .shop-btn {
   text-decoration: none;
-
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 400;
   font-size: 16px;
-  line-height: 1.5;
 
-  color: #080c0c;
+  transition:
+    color 250ms ease,
+    text-decoration-color 250ms ease,
+    background-color 250ms ease;
 }
 
-/* BUTTON */
+.nav-link:hover,
+.nav-link:focus {
+  text-decoration: underline;
+}
+
+.nav-link:active {
+  color: #f19898;
+}
 
 .shop-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   padding: 8px 20px;
-
   background-color: #f19898;
   border-radius: 30px;
+
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease;
 }
 
-/* BURGER */
+.shop-btn:hover,
+.shop-btn:focus {
+  background-color: #fff;
+  border-color: #080c0c;
+}
+
+.shop-btn:active {
+  background-color: #f5b6b6;
+}
+.shop-btn:disabled {
+  background: #f19898;
+  opacity: 0.3;
+  pointer-events: none;
+}
 
 .burger-btn {
   display: block;
-
   padding: 0;
-
   border: none;
   background-color: transparent;
-
   cursor: pointer;
 }
 
 /* TABLET */
 
 @media screen and (min-width: 768px) {
-  .container {
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-
   .nav-list {
     display: flex;
     gap: 16px;
@@ -126,8 +121,7 @@ header {
 /* DESKTOP */
 
 @media screen and (min-width: 1440px) {
-  .container {
-    padding-left: 64px;
-    padding-right: 64px;
+  .nav-list {
+    gap: 32px;
   }
 }
