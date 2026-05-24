@@ -13,11 +13,7 @@ if (openBtn && closeBtn && mobMenu) {
     link.addEventListener('click', closeMenu);
   });
 
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
-      closeMenu();
-    }
-  });
+  document.addEventListener('keydown', handleEscClose);
 }
 
 function openMenu() {
@@ -30,4 +26,10 @@ function closeMenu() {
   mobMenu.classList.add('is-hidden');
 
   document.body.classList.remove('no-scroll');
+}
+
+function handleEscClose(event) {
+  if (event.key === 'Escape' && !mobMenu.classList.contains('is-hidden')) {
+    closeMenu();
+  }
 }
