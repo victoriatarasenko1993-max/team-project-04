@@ -1,86 +1,148 @@
+
+/* FAQ Section */
+
 .faq-section {
   padding-top: 80px;
   padding-bottom: 80px;
 }
 
 .faq-container {
-    width: 100%;
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .faq-title {
-    font-family: 'Comfortaa', sans-serif;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 120%;
-    text-align: center;
+  margin-bottom: 80px;
 
-    margin-bottom: 80px;
-
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.2;
+  text-align: center;
 }
 
-/* Список */
+/* FAQ Accordion  */
 
 .faq-accordion {
-    display: flex;
-    flex-direction: column;
-
-    gap: 0;
-
-    padding: 0;
-    margin: 0;
-
-    list-style: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-/* Елемент */
+/* FAQ Item  */
 
-.faq-item {
-    border-top: 2px solid #000;
-
-    background-color: transparent;
+.faq-item.ac {
+  margin: 0;
+  border: none;
+  border-top: 2px solid #000;
+  background-color: transparent;
 }
 
-.faq-item:last-child {
-    border-bottom: 2px solid #000;
+.faq-item.ac:last-child {
+  border-bottom: 2px solid #000;
 }
 
-/* Питання */
-
-
-.faq-question {
-
-    width: 100%;
-
-    padding: 22.5px 0;
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    background-color: transparent;
-    border: none;
-
-    text-align: left;
-
-    font-family: 'Work Sans', sans-serif;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 150%;
-
-    cursor: pointer;
+.faq-item .ac-header {
+  margin: 0;
 }
 
-/* Відповідь */
+/* FAQ Question */
 
-.faq-answer {
-    padding-bottom: 24px;
+.faq-question.ac-trigger {
+  width: 100%;
+  min-height: auto;
+  padding: 22.5px 0;
 
-    font-family: 'Work Sans', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 150%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: #000;
+  background-color: transparent;
+  border: none;
+
+  text-align: left;
+  cursor: pointer;
 }
 
-/* .ac .ac-trigger::after {
-    display: none;
-} */
+/* Active state */
+
+.faq-item.ac.is-active .faq-question {
+  color: #000;
+}
+
+/* Focus state */
+
+.faq-question.ac-trigger:focus {
+  outline: none;
+  color: #000;
+}
+
+/* FAQ Answer */
+
+.faq-answer.ac-text {
+  margin: 0;
+  padding: 0 24px 22.5px 0;
+
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+
+  color: #000;
+}
+
+/* FAQ Icon  */
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+  transition: transform 300ms ease;
+}
+
+.faq-item.is-active .faq-icon {
+  transform: rotate(180deg);
+}
+
+
+.ac .ac-trigger::after {
+  display: none;
+}
+
+.ac .ac-panel .ac-text {
+  padding-top: 0;
+}
+
+/* Tablet and Desktop Styles */
+
+@media screen and (min-width: 768px) {
+  .faq-container {
+    max-width: 704px;
+  }
+
+  .faq-title {
+    margin-bottom: 48px;
+    font-size: 40px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .faq-section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  .faq-container {
+    max-width: 1032px;
+  }
+}
+
