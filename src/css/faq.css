@@ -1,0 +1,147 @@
+
+/* FAQ Section */
+
+.faq-section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+
+.faq-title {
+  margin-bottom: 40px;
+
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.2;
+  text-align: center;
+  color: #080c0c;
+}
+
+/* FAQ Accordion  */
+
+.faq-accordion {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* FAQ Item  */
+
+.faq-item.ac {
+  margin: 0;
+  padding: 20px 0px;
+  border: none;
+  border-top: 2px solid #080c0c;
+  background-color: transparent;
+}
+
+.faq-item.ac:last-child {
+  border-bottom: 2px solid #080c0c;
+}
+
+.faq-item .ac-header {
+  margin: 0;
+}
+
+/* FAQ Question */
+
+.faq-question.ac-trigger {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: #080c0c;
+  background-color: transparent;
+  border: none;
+
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Active state */
+
+.faq-item.ac.is-active .faq-question {
+  color: #080c0c;
+}
+
+/* Focus state */
+
+.faq-question.ac-trigger:focus {
+  outline: none;
+  color: #080c0c;
+}
+
+/* FAQ Answer */
+
+.faq-answer.ac-text {
+  margin: 0;
+  padding: 0px 0px 24px;
+
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: #080c0c;
+}
+
+/* FAQ Icon  */
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+  transition: transform 300ms ease;
+}
+
+.faq-item.is-active .faq-icon {
+  transform: rotate(180deg);
+}
+
+
+.ac .ac-trigger::after {
+  display: none;
+}
+
+.ac .ac-panel .ac-text {
+  padding-top: 0;
+}
+
+/* Tablet and Desktop Styles */
+
+@media only screen and (min-width: 768px) {
+
+  .faq-question.ac-trigger {
+    gap: 22.5px;
+  }
+}
+
+
+
+@media screen and (min-width: 1440px) {
+  .faq-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .faq-title {
+    margin-bottom: 80px;
+    font-size: 48px;
+  } 
+
+  .faq-question.ac-trigger {
+    gap: 22.5px;
+    font-size: 18px;
+  }
+}
+
+
