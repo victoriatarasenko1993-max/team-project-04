@@ -37,7 +37,6 @@
     overflow-y: auto;
     flex-grow: 1;
     max-height: 100%;
-    padding-right: 4px;
 }
 
 /* CLOSE BUTTON */
@@ -122,8 +121,6 @@
     cursor: pointer;
     transition: background 200ms;
     flex-shrink: 0;
-    width: 295px;
-    height: 52px;
 }
 
 .order-btn:hover{
@@ -169,6 +166,7 @@
         max-width: 1312px;
         padding: 64px;
     }
+   
     .modal-inner{
         display: flex;
         gap:24px;
@@ -177,6 +175,7 @@
     .dessert-details-img {
         max-width: 580px;
     }
+   
 }
 /* LOADER */
 .loader {
