@@ -102,6 +102,11 @@
   fill: currentColor;
 }
 
+.footer-divider {
+ border: 2px solid #080c0c;
+ width: 335px;
+ margin: 40px 0 32px;
+}
 
 .footer__copyright {
   font-family: 'Work Sans', sans-serif;
