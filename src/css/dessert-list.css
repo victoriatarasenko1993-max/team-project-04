@@ -49,12 +49,6 @@
   gap: 32px;
 }
 
-/* .desserts-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px 24px;
-} */
-
 .dessert-list-item {
   display: flex;
   flex-direction: column;
@@ -133,8 +127,7 @@
   border: 1px solid #f19898;
   border-radius: 100px;
   padding: 10px 24px;
-  width: 344px;
-  height: 44px;
+  width: 100%;
   background-color: #f19898;
   display: block;
   margin: 0 auto;
@@ -223,9 +216,17 @@
     flex-basis: calc((100% - 16px) / 2);
     min-height: 440px;
   }
+
+  .load-more-btn {
+    min-width: 344px;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
+  .desserts-page {
+    padding: 80px 0;
+  }
+
   .categories-list-container {
     flex-direction: column;
     justify-content: start;
@@ -234,10 +235,6 @@
 
   .titel-container {
     margin-bottom: 40px;
-  }
-
-  .desserts-page {
-    padding: 80px 0;
   }
 
   .desserts-page-title {
@@ -297,5 +294,9 @@
     max-width: 310px;
     flex-basis: calc((100% - 72px) / 4);
     min-height: 431px;
+  }
+
+  .load-more-btn {
+    max-width: 198px;
   }
 }
