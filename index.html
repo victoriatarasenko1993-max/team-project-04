@@ -12,26 +12,32 @@
     <script type="module" crossorigin src="/team-project-04/index.js"></script>
     <link rel="modulepreload" crossorigin href="/team-project-04/assets/vendor-Cb7VvBBu.js">
     <link rel="stylesheet" crossorigin href="/team-project-04/assets/vendor-BfPs2Zf6.css">
-    <link rel="stylesheet" crossorigin href="/team-project-04/assets/index-DnauOysY.css">
+    <link rel="stylesheet" crossorigin href="/team-project-04/assets/index-CvfGRla4.css">
   </head>
   <body>
-    <header class="header">
-  <div class="container">
-    <nav class="nav">
-      <a class="nav-logo" href="./index.html" aria-label="Site logo">
-        <svg class="nav-logo-icon" width="100" height="30">
-          <use href="{=$icon-path}"></use>
+    <header>
+  <div class="container header-container">
+    <div class="logo-box">
+      <a href="./index.html" class="logo-box" aria-label="Home page">
+        <svg width="134" height="40">
+          <use href="/team-project-04/assets/icons-atvWN2RG.svg#icon-logo"></use>
         </svg>
       </a>
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-act}" href="./page-2.html">Page 2</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-curr}" href="./page-3.html">Page 3</a>
-        </li>
-      </ul>
-    </nav>
+    </div>
+
+    <ul class="nav-list">
+      <li><a class="nav-link" href="#desserts-list">Солодощі</a></li>
+      <li><a class="nav-link" href="#about">Про нас</a></li>
+      <li><a class="nav-link" href="#feedback">Відгуки</a></li>
+      <li><a class="nav-link" href="#faq">Часті питання</a></li>
+      <li><a class="shop-btn" href="#desserts-list">До покупок</a></li>
+    </ul>
+
+    <button class="burger-btn" type="button" aria-label="Open menu">
+      <svg width="24" height="24">
+        <use href="/team-project-04/assets/icons-atvWN2RG.svg#icon-menu"></use>
+      </svg>
+    </button>
   </div>
 </header>
 
