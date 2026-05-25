@@ -1,6 +1,8 @@
 import { getDessertDetailsById } from "./dessert-details-api.js";
 import { renderDetailsDessert } from "./render-function-modal-details.js";
-import {showLoader, hideLoader} from "./render-function-modal-details.js";
+import { showLoader, hideLoader } from "./render-function-modal-details.js";
+import { openOrderModal } from "./order-modal.js";
+
 import iziToast from "izitoast";
 import "css-star-rating/css/star-rating.css";
 
@@ -38,7 +40,7 @@ function closeModal() {
 refs.closeBtn.addEventListener("click", closeModal);
 
 refs.backdrop.addEventListener("click", (e) => {
-  if (e.target === backdrop) closeModal();
+  if (e.target === refs.backdrop) closeModal();
 });
 
 document.addEventListener("keydown", (e) => {
@@ -48,5 +50,5 @@ document.addEventListener("keydown", (e) => {
 // ORDER BUTTON
 refs.orderBtn.addEventListener("click", () => {
   closeModal();
-  console.log("Открыть модалку заказа");
+    openOrderModal(id);
 });

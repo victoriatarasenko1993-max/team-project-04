@@ -1,7 +1,8 @@
 // CSS-Star-Rating
 function getRatingClasses(rate) {
-  const isHalf = rate % 1 !== 0;
-  const value = Math.floor(rate);
+    const numericRate = Number(rate);
+  const isHalf = numericRate % 1 !== 0;
+  const value = Math.floor(numericRate);
   return `value-${value} ${isHalf ? "half" : ""}`;
 }
 
@@ -48,6 +49,7 @@ export function renderDetailsDessert({
     </div>
   `;
 }
+
 const loaderEl = document.querySelector("[data-loader]");
 
 export function showLoader() {
