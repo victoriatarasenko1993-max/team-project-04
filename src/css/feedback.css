@@ -9,7 +9,7 @@
 .feedback-title {
   margin-bottom: 24px;
   font-family: 'Comfortaa', sans-serif;
-  font-size: 32px;
+  font-size: 36px;
   line-height: 1.2;
   text-align: center;
   color: #080c0c;
@@ -47,7 +47,7 @@
   width: 100%;
   height: 233px;
   flex-direction: column;
-  padding: 24px 28px 56px;
+  padding: 32px;
   border: 2px solid #080c0c;
   border-radius: 16px;
   background-color: transparent;
@@ -55,7 +55,7 @@
 
 .feedback-rating {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   margin-bottom: 24px;
   color: #080c0c;
   pointer-events: none;
@@ -112,12 +112,13 @@
 .feedback-nav:hover,
 .feedback-nav:focus {
   color: #f5fdfd;
-  background-color: #080c0c;
+  background-color: #f19898;;
   cursor: pointer;
 }
 
 .feedback-nav:active {
   transform: scale(0.94);
+  background-color: #c07979;
 }
 
 .feedback-nav.swiper-button-disabled {
