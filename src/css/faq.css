@@ -31,6 +31,7 @@
 .faq-item.ac {
   margin: 0;
   padding: 20px 0px;
+  border: none;
   border-top: 2px solid #080c0c;
   background-color: transparent;
 }
