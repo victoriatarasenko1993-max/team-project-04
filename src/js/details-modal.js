@@ -4,7 +4,7 @@ import { showLoader, hideLoader } from "./render-function-modal-details.js";
 // import { openOrderModal } from "./order-modal.js";
 
 import iziToast from "izitoast";
-const id = "6852a9fcb459460cb6b47739";
+
 const refs = {
     backdrop: document.querySelector("[data-modal]"),
     content: document.querySelector("[data-modal-content]"),
@@ -51,5 +51,3 @@ refs.orderBtn.addEventListener("click", () => {
   closeModal();
     // openOrderModal(id);
 });
-
-openModal(id);
