@@ -106,6 +106,7 @@
 
 /* BUTTON */
 .order-btn {
+    margin-top:24px;
     border: 1px solid var(--color-wewak);
     padding: 10px 24px;
     border-radius: 100px;
@@ -193,14 +194,29 @@
     display: none;
 }
 /* rating */
-.rating .star i.star-filled {
-    color: #000 !important;
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
 }
 
-.rating .star i.star-half {
-    color: #000 !important;
+.star {
+  width: 16px;
+  height: 16px;
 }
 
-.rating .star i.star-empty {
-    color: #dcdcdc !important;
+/* заполненные */
+.star.filled {
+  fill: #000;
 }
+
+/* пустые */
+.star.empty {
+  fill: #dcdcdc;
+}
+
+/* половинка */
+.star.half {
+  fill: url(#half-gradient);
+}
+

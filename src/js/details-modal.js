@@ -4,7 +4,6 @@ import { showLoader, hideLoader } from "./render-function-modal-details.js";
 import { openOrderModal } from "./order-modal.js";
 
 import iziToast from "izitoast";
-import "css-star-rating/css/star-rating.css";
 
 const refs = {
     backdrop: document.querySelector("[data-modal]"),
@@ -52,3 +51,4 @@ refs.orderBtn.addEventListener("click", () => {
   closeModal();
     openOrderModal(id);
 });
+

@@ -1,33 +1,45 @@
 // CSS-Star-Rating
-function getRatingClasses(rate) {
-    const numericRate = Number(rate);
-  const isHalf = numericRate % 1 !== 0;
-  const value = Math.floor(numericRate);
-  return `value-${value} ${isHalf ? "half" : ""}`;
-}
 
-function renderRating(rate) {
+function renderStars(rate) {
+  const fullStars = Math.floor(rate);
+  const hasHalf = rate % 1 !== 0;
+  const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
+
   return `
-    <div class="rating large star-icon ${getRatingClasses(rate)} label-top">
-      <div class="label-value">${rate}</div>
-      <div class="star-container">
-        ${Array(5)
-          .fill(0)
-          .map(
-            () => `
-          <div class="star">
-            <i class="star-empty"></i>
-            <i class="star-half"></i>
-            <i class="star-filled"></i>
-          </div>
-        `
-          )
-          .join("")}
-      </div>
+    <div class="stars">
+      
+      ${Array(fullStars)
+        .fill()
+        .map(() => `
+          <svg class="star filled">
+            <use href="#icon-star"></use>
+          </svg>
+        `)
+        .join("")}
+
+      ${
+        hasHalf
+          ? `
+        <svg class="star half">
+          <use href="#icon-star"></use>
+        </svg>
+      `
+          : ""
+      }
+
+      ${Array(emptyStars)
+        .fill()
+        .map(() => `
+          <svg class="star empty">
+            <use href="#icon-star"></use>
+          </svg>
+        `)
+        .join("")}
 
     </div>
   `;
 }
+
 export function renderDetailsDessert({
   name,
   description,
@@ -41,7 +53,7 @@ export function renderDetailsDessert({
     <div>
       <h3 class="dessert-details-title">${name}</h3>
       <p class="price">${price} грн</p>
-      ${renderRating(rate)}
+      ${renderStars(rate)}
       <p class="description">${description}</p>
       <p class="composition">
         <strong>Склад:</strong> ${composition}
