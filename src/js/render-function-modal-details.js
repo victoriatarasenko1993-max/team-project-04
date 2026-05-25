@@ -48,16 +48,15 @@ export function renderDetailsDessert({
   rate,
   image,
 }) {
-  return `
+    return `<div class="modal-inner">
     <img class="dessert-details-img" src="${image}" alt="${name}" />
-    <div>
-      <h3 class="dessert-details-title">${name}</h3>
-      <p class="price">${price} грн</p>
-      ${renderStars(rate)}
-      <p class="description">${description}</p>
-      <p class="composition">
-        <strong>Склад:</strong> ${composition}
-      </p>
+    <div class="modal-text">
+    <h3 class="dessert-details-title">${name}</h3>
+    <p class="price">${price} грн</p>
+    ${renderStars(rate)}
+    <p class="description">${description}</p>
+    <p class="composition"><strong>Склад:</strong> ${composition}</p>
+    </div>
     </div>
   `;
 }

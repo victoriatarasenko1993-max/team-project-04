@@ -24,16 +24,19 @@
     position: relative;
     width: calc(100% - 32px);
     max-width: 335px;
-    max-height: 90vh;
+    max-height: 100%;
     background: #fff;
     border-radius: 16px;
     padding: 64px 20px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 .modal-content {
     overflow-y: auto;
     flex-grow: 1;
+    max-height: 100%;
     padding-right: 4px;
 }
 
@@ -119,6 +122,8 @@
     cursor: pointer;
     transition: background 200ms;
     flex-shrink: 0;
+    width: 295px;
+    height: 52px;
 }
 
 .order-btn:hover{
@@ -130,32 +135,47 @@
 
 /* TABLET 768 */
 @media (min-width: 768px) {
-    .modal {
-        max-width: 600px;
+    .modal{
+        max-width: 704px;
+        max-height:90vh;
         padding: 64px 32px;
+    }
+    .modal-inner{
+       display: flex;
+       flex-wrap: wrap;
+       gap:24;
+    }
+    .order-btn {
+        width: 310px;
+        height: 52px;
     }
 
     /* .modal-close {
         top: 24px;
         right: 24px;
     } */
+    .dessert-details-img {
+        width: 640px;
+        flex-shrink:0;
+    }
+    .modal-text{
+        flex-grow: 1;
+    }
 }
 
 /* DESKTOP 1440 */
 @media (min-width: 1440px) {
     .modal {
-        max-width: 900px;
-        flex-direction: row;
-        gap: 24px;
+        max-width: 1312px;
+        padding: 64px;
     }
-
-    .modal-content {
+    .modal-inner{
         display: flex;
-        gap: 24px;
+        gap:24px;
     }
 
     .dessert-details-img {
-        width: 400px;
+        max-width: 580px;
     }
 }
 /* LOADER */
