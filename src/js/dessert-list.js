@@ -3,7 +3,7 @@ import iziToast from "izitoast";
 
 import "izitoast/dist/css/iziToast.min.css";
 
-// import { openModal } from "./details-modal.js"
+import { openModal } from "./details-modal.js"
 
 const dessertsList = document.querySelector(".desserts-list");
 const loadMoreBtn = document.querySelector(".load-more-btn");
@@ -34,7 +34,7 @@ dessertsList.addEventListener("click", async (e) => {
     
     const dessertId = button.dataset.id;
 
-    // await openModal(dessertId);
+    await openModal(dessertId);
 });
 
 
