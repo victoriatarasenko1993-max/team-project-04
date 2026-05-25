@@ -70,7 +70,10 @@ header {
   justify-content: center;
   padding: 8px 20px;
   background-color: #f19898;
-  border-radius: 30px;
+  border-radius: 100px;
+  border: 1px solid #f19898;
+  width: 133px;
+  height: 40px;
 
   transition:
     background-color 250ms ease,
