@@ -98,19 +98,13 @@
         justify-content: center;
         border: 2px solid #080c0c;
         border-radius: 50%;
-        background-color: #ffffff;
+        background-color: #f5fdfd;;
         color: #080c0c;
     
         transition:
         background-color 250ms ease,
         opacity 250ms ease,
         transform 250ms ease;
-    }
-
-    .about-btn:hover,
-    .about-btn:focus {
-        background-color: #f3f3f3;
-        cursor: pointer;
     }
     
     .about-btn-prev {
@@ -176,7 +170,7 @@
 @media screen and (min-width: 1440px) {
 
     .about {
-        padding: 100px 0;
+        padding: 80px 0;
     }
 
     .about-title {
