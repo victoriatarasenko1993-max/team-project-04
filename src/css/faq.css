@@ -21,8 +21,10 @@
 /* FAQ Accordion  */
 
 .faq-accordion {
+  max-width: 100%;
+  margin: 0 auto;
   padding: 0;
-  margin: 0;
+ 
   list-style: none;
 }
 
@@ -128,6 +130,10 @@
 
 
 @media screen and (min-width: 1440px) {
+  .faq-accordion {
+    max-width: 1064px;
+ }
+}
   .faq-section {
     padding-top: 80px;
     padding-bottom: 80px;
@@ -142,6 +148,6 @@
     gap: 22.5px;
     font-size: 18px;
   }
-}
+
 
 
