@@ -146,19 +146,24 @@
 .feedback-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 32px;
 }
 
-.feedback-arrows {
+.feedback-pagination {
+  position: static;
   display: flex;
-  gap: 12px;
+  width: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transform: none;
 }
 
-.feedback-pagination {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.feedback-pagination.swiper-pagination-horizontal {
+  position: static;
+  width: auto;
+  transform: none;
 }
 
 .feedback-pagination-bullet {
@@ -235,19 +240,32 @@
 
 @media only screen and (max-width: 767.98px) {
   .feedback-slider-wrap {
-    padding-bottom: 80px;
+    padding-bottom: 72px;
   }
 
-  .feedback-arrows {
+  .feedback-nav {
     position: absolute;
-    right: 0;
+    top: auto;
     bottom: 0;
-    display: flex;
-    gap: 12px;
+    transform: none;
+  }
+
+  .feedback-nav-prev {
+    right: 56px;
+  }
+
+  .feedback-nav-next {
+    right: 0;
+  }
+
+  .feedback-nav:active {
+    transform: scale(0.94);
   }
 
   .feedback-bottom {
+    justify-content: flex-start;
     margin-top: -48px;
+    min-height: 48px;
     padding-right: 120px;
   }
 }
@@ -280,39 +298,28 @@
     right: 14px;
     bottom: 24px;
   }
-  .feedback-bottom {
-    justify-content: center;
-    margin-top: 56px;
-  }
-
-  .feedback-arrows {
-    position: absolute;
-    left: -24px;
-    right: -24px;
-    top: 50%;
-    z-index: 2;
-    display: block;
-    height: 48px;
-    transform: translateY(-50%);
-    pointer-events: none;
-  }
-
   .feedback-nav {
     position: absolute;
-    top: 0;
-    pointer-events: auto;
+    top: 50%;
+    z-index: 2;
+    transform: translateY(-50%);
   }
 
   .feedback-nav-prev {
-    left: 0;
+    left: -24px;
   }
 
   .feedback-nav-next {
-    right: 0;
+    right: -24px;
   }
 
   .feedback-nav:active {
-    transform: scale(0.94);
+    transform: translateY(-50%) scale(0.94);
+  }
+
+  .feedback-bottom {
+    justify-content: center;
+    margin-top: 56px;
   }
 }
 
@@ -330,9 +337,5 @@
     left: 32px;
     right: 32px;
     bottom: 32px;
-  }
-  .feedback-arrows {
-    left: -24px;
-    right: -24px;
   }
 }
