@@ -4,7 +4,7 @@ import { showLoader, hideLoader } from "./render-function-modal-details.js";
 // import { openOrderModal } from "./order-modal.js";
 
 import iziToast from "izitoast";
-// const id = "6852a9fcb459460cb6b47736";
+const id = "6852a9fcb459460cb6b47736";
 const refs = {
     backdrop: document.querySelector("[data-modal]"),
     content: document.querySelector("[data-modal-content]"),
@@ -16,11 +16,13 @@ export async function openModal(id) {
     refs.backdrop.classList.remove("is-hidden");
     document.body.style.overflow = "hidden";
     
-    refs.content.innerHTML = "";
+  refs.content.innerHTML = "";
+  refs.orderBtn.disabled = true;
     showLoader();
   try {
     const data = await getDessertDetailsById(id);
     refs.content.innerHTML = renderDetailsDessert(data);
+    refs.orderBtn.disabled = false;
   } catch {
       iziToast.error({
           title: 'Error',
@@ -34,6 +36,7 @@ export async function openModal(id) {
 function closeModal() {
   refs.backdrop.classList.add("is-hidden");
   document.body.style.overflow = "";
+  refs.orderBtn.disabled = true;
 }
 
 refs.closeBtn.addEventListener("click", closeModal);
@@ -51,4 +54,4 @@ refs.orderBtn.addEventListener("click", () => {
   closeModal();
     // openOrderModal(id);
 });
-// openModal(id);
+openModal(id);
