@@ -1,15 +1,14 @@
 import { getDessertDetailsById } from "./dessert-details-api.js";
 import { renderDetailsDessert } from "./render-function-modal-details.js";
 import { showLoader, hideLoader } from "./render-function-modal-details.js";
-// import { openOrderModal } from "./order-modal.js";
+import { openOrderModal } from "./order-modal.js";
 
 import iziToast from "izitoast";
-const id = "6852a9fcb459460cb6b47736";
 const refs = {
+    inner:document.querySelector("[data-modal-inner]"),
     backdrop: document.querySelector("[data-modal]"),
     content: document.querySelector("[data-modal-content]"),
     closeBtn: document.querySelector("[data-modal-close]"),
-    orderBtn: document.querySelector("[data-order-btn]"),
 }
 
 export async function openModal(id) {
@@ -17,12 +16,17 @@ export async function openModal(id) {
     document.body.style.overflow = "hidden";
     
   refs.content.innerHTML = "";
-  refs.orderBtn.disabled = true;
     showLoader();
   try {
     const data = await getDessertDetailsById(id);
     refs.content.innerHTML = renderDetailsDessert(data);
-    refs.orderBtn.disabled = false;
+    const orderBtn = document.querySelector(".order-btn");
+    orderBtn.disabled = false;
+    orderBtn.addEventListener("click", () => {
+      orderBtn.disabled = true;
+      closeModal();
+      openOrderModal(id);
+      });
   } catch {
       iziToast.error({
           title: 'Error',
@@ -48,10 +52,3 @@ refs.backdrop.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
-
-// ORDER BUTTON
-refs.orderBtn.addEventListener("click", () => {
-  closeModal();
-    // openOrderModal(id);
-});
-openModal(id);
