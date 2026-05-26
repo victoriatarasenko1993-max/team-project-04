@@ -40,7 +40,7 @@ export async function openModal(id) {
 function closeModal() {
   refs.backdrop.classList.add("is-hidden");
   document.body.style.overflow = "";
-  refs.orderBtn.disabled = true;
+  refs.content.innerHTML = "";
 }
 
 refs.closeBtn.addEventListener("click", closeModal);
