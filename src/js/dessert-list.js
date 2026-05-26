@@ -4,6 +4,7 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 import { openModal } from "./details-modal.js"
+import icons from "../img/icons.svg"
 
 const dessertsList = document.querySelector(".desserts-list");
 const loadMoreBtn = document.querySelector(".load-more-btn");
@@ -99,7 +100,7 @@ function createDessertsMarkup(arr) {
                 <p class="desserts-item-price">${price} грн</p>
                 <button class="desserts-item-btn" data-id="${_id}">
                     <svg height="24" width="24">
-                        <use href="/img/icons.svg#icon-arrow-outward"></use>
+                        <use href="${icon}#icon-arrow-outward"></use>
                     </svg>
                 </button>
             </div>
