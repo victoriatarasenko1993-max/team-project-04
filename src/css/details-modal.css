@@ -142,7 +142,7 @@
     .modal-inner{
        display: flex;
        flex-wrap: wrap;
-       gap:24;
+       gap: 24px;
     }
     .order-btn {
         width: 310px;
