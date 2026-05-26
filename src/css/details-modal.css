@@ -59,7 +59,7 @@
     fill: #080c0c;
     transition: all 200ms ease;
 }
-.modal-close:hover .modal-close-icon {
+.modal-close:hover .modal-close-icon, .modal-close:focus {
     fill: #f19898;
     transform: scale(1.1);
 }
