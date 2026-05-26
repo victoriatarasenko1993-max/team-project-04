@@ -170,6 +170,7 @@
    
     .modal-inner{
         display: flex;
+        flex-wrap: nowrap;
         flex-direction: row;
         gap:24px;
     }
