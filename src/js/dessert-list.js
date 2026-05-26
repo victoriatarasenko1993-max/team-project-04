@@ -100,7 +100,7 @@ function createDessertsMarkup(arr) {
                 <p class="desserts-item-price">${price} грн</p>
                 <button class="desserts-item-btn" data-id="${_id}">
                     <svg height="24" width="24">
-                        <use href="${icon}#icon-arrow-outward"></use>
+                        <use href="${icons}#icon-arrow-outward"></use>
                     </svg>
                 </button>
             </div>
