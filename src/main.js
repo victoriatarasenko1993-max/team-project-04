@@ -10,3 +10,4 @@ import './js/footer.js';
 import './js/mobmenu.js';
 import './js/details-modal.js';
 import './js/order-modal.js';
+import 'izitoast/dist/css/iziToast.min.css';

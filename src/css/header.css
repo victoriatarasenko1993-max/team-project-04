@@ -1,44 +1,130 @@
-.header {
-  padding: 20px 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-.nav {
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+.container {
+  width: 100%;
+}
+
+header {
+  width: 100%;
+}
+
+.header-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
-.nav-logo {
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-list {
+  display: none;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link,
+.shop-btn {
+  text-decoration: none;
+  font-size: 16px;
+
+  transition:
+    color 250ms ease,
+    text-decoration-color 250ms ease,
+    background-color 250ms ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  text-decoration: underline;
+}
+
+.nav-link:active {
+  color: #f19898;
+}
+
+.shop-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 8px 20px;
+  background-color: #f19898;
+  border-radius: 100px;
+  border: 1px solid #f19898;
+  width: 133px;
+  height: 40px;
+
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease;
 }
-.nav-list {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 40px;
+
+.shop-btn:hover,
+.shop-btn:focus {
+  background-color: #fff;
+  border-color: #080c0c;
 }
-.nav-link {
-  position: relative;
+
+.shop-btn:active {
+  background-color: #f5b6b6;
+}
+.shop-btn:disabled {
+  background: #f19898;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.burger-btn {
   display: block;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: 200ms ease-in;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
-.nav-link:hover,
-.nav-link:focus {
-  color: #747bff;
+
+/* TABLET */
+
+@media screen and (min-width: 768px) {
+  .nav-list {
+    display: flex;
+    gap: 16px;
+  }
+
+  .shop-btn {
+    display: inline-flex;
+  }
+
+  .burger-btn {
+    display: none;
+  }
 }
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(100%);
-  width: 110%;
-  height: 4px;
-  border-radius: 4px;
-  transform-origin: center;
-  animation: stretch 400ms cubic-bezier(0.68, -0.55, 0.27, 1.55) 200ms both;
-}
-.nav-link.active::after {
-  background: #747bff;
+
+/* DESKTOP */
+
+@media screen and (min-width: 1440px) {
+  .nav-list {
+    gap: 32px;
+  }
 }
