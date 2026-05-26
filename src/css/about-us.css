@@ -13,13 +13,12 @@
     line-height: 1.2;
     letter-spacing: -0.01em;
     margin-bottom: 24px;
+    text-wrap: balance;
 }
 
 .about-text {
-    max-width: 767px;
+    max-width: 335px;
     margin: 0 auto;
-    font-size: 18px;
-    line-height: 1.6;
 }
 
 .about-gallery-mobile {
@@ -40,6 +39,10 @@
 }
 
 @media screen and (min-width: 768px) {
+
+    .about-text {
+        max-width: 704px;
+    }
 
     .about-gallery-mobile {
         display: none;
@@ -98,7 +101,7 @@
         justify-content: center;
         border: 2px solid #080c0c;
         border-radius: 50%;
-        background-color: #ffffff;
+        background-color: #f5fdfd;
         color: #080c0c;
     
         transition:
@@ -106,13 +109,7 @@
         opacity 250ms ease,
         transform 250ms ease;
     }
-
-    .about-btn:hover,
-    .about-btn:focus {
-        background-color: #f3f3f3;
-        cursor: pointer;
-    }
-    
+  
     .about-btn-prev {
         left: 0;
         transform: translate(-50%, -50%);
@@ -148,7 +145,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 9px;
     }
 
     .about-pagination-bullet {
@@ -176,9 +173,13 @@
 @media screen and (min-width: 1440px) {
 
     .about {
-        padding: 100px 0;
+        padding: 80px 0;
     }
 
+    .about-text {
+        max-width: 768px;
+    }
+    
     .about-title {
     font-size: 48px;
     }
