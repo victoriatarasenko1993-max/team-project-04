@@ -3,7 +3,7 @@
 import './js/header.js';
 import './js/hero.js';
 import './js/dessert-list.js';
-// import './js/feedback.js';
+import './js/feedback.js';
 import './js/faq.js';
 import './js/about-us.js';
 import './js/footer.js';

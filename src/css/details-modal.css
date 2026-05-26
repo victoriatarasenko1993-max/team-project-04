@@ -59,10 +59,10 @@
     fill: #080c0c;
     transition: all 200ms ease;
 }
-/* .modal-close:hover .modal-close-icon {
-    fill: #f8766b;
+.modal-close:hover .modal-close-icon {
+    fill: #f19898;
     transform: scale(1.1);
-} */
+}
 
 /* CONTENT */
 .dessert-details-img {
