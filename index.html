@@ -531,19 +531,21 @@
         <form class="order-form" data-order-form>
             <label class="order-form-field">
                 <span class="order-form-label">Ім’я*</span>
-                <input class="order-form-input" type="text" name="name" placeholder="Вікторія" autocomplete="name"
-                    required />
+                <input class="order-form-input" type="text" name="name" placeholder="Вікторія" autocomplete="name" required
+                    minlength="2" maxlength="40" pattern="[^0-9]+" title="Ім’я не повинно містити цифри" />
             </label>
 
             <label class="order-form-field">
                 <span class="order-form-label">Телефон*</span>
-                <input class="order-form-input" type="tel" name="phone" placeholder="38 0__ ______" autocomplete="tel"
-                    required />
+                <input class="order-form-input" type="tel" name="phone" placeholder="380961234568" autocomplete="tel"
+                    required minlength="10" maxlength="13" pattern="[0-9]{10,13}"
+                    title="Введіть номер телефону цифрами, наприклад 380961234568" />
             </label>
 
             <label class="order-form-field">
                 <span class="order-form-label">Коментар*</span>
-                <textarea class="order-form-textarea" name="comment" placeholder="Ваш коментар" required></textarea>
+                <textarea class="order-form-textarea" name="comment" placeholder="Ваш коментар" required minlength="3"
+                    maxlength="300" title="Коментар має містити від 3 до 300 символів"></textarea>
             </label>
 
             <button class="order-form-submit" type="submit">
