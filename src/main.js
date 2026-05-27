@@ -2,7 +2,6 @@
 
 import './js/header.js';
 import './js/hero.js';
-import './js/popular-products.js';
 import './js/dessert-list.js';
 import './js/feedback.js';
 import './js/faq.js';

@@ -16,7 +16,13 @@ let maxIndex = 0;
 initPopularProducts();
 
 async function initPopularProducts() {
-  if (!refs.list || !refs.viewport || !refs.prevBtn || !refs.nextBtn || !refs.pagination) {
+  if (
+    !refs.list ||
+    !refs.viewport ||
+    !refs.prevBtn ||
+    !refs.nextBtn ||
+    !refs.pagination
+  ) {
     return;
   }
 
@@ -29,8 +35,11 @@ async function initPopularProducts() {
           Популярні товари не знайдено
         </li>
       `;
+
       refs.prevBtn.disabled = true;
       refs.nextBtn.disabled = true;
+      refs.pagination.innerHTML = '';
+
       return;
     }
 
@@ -56,6 +65,7 @@ async function initPopularProducts() {
 
     refs.prevBtn.disabled = true;
     refs.nextBtn.disabled = true;
+    refs.pagination.innerHTML = '';
   }
 }
 
@@ -63,7 +73,9 @@ async function fetchPopularProducts() {
   const response = await fetch(`${BASE_URL}/desserts?type=popular`);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch popular products. Status: ${response.status}`);
+    throw new Error(
+      `Failed to fetch popular products. Status: ${response.status}`
+    );
   }
 
   const data = await response.json();
@@ -84,36 +96,19 @@ function renderProducts(items) {
 }
 
 function createProductCard(product) {
-  const productId = product._id || product.id || '';
-  const productName = product.name || product.title || 'Десерт';
-  const productCategory =
-    product.category ||
-    product.type ||
-    product.categoryName ||
-    'Шоколадні випічки';
-
-  const productDescription =
-    product.shortDescription ||
-    product.description ||
-    product.text ||
-    'Соковитий десерт з натуральними інгредієнтами.';
-
-  const productImage =
-    product.image ||
-    product.img ||
-    product.preview ||
-    product.photo ||
-    product.imageUrl ||
-    '';
-
+  const productId = getProductId(product);
+  const productName = getProductName(product);
+  const productCategory = getProductCategory(product);
+  const productDescription = getProductDescription(product);
+  const productImage = getProductImage(product);
   const productPrice = getProductPrice(product.price);
 
   return `
     <li class="popular-products__item">
-      <article class="popular-card" data-id="${productId}">
+      <article class="popular-card" data-id="${escapeHtml(productId)}">
         <img
           class="popular-card__image"
-          src="${productImage}"
+          src="${escapeHtml(productImage)}"
           alt="${escapeHtml(productName)}"
           loading="lazy"
         />
@@ -122,15 +117,17 @@ function createProductCard(product) {
 
         <h3 class="popular-card__title">${escapeHtml(productName)}</h3>
 
-        <p class="popular-card__description">${escapeHtml(productDescription)}</p>
+        <p class="popular-card__description">${escapeHtml(
+          productDescription
+        )}</p>
 
         <div class="popular-card__bottom">
-          <p class="popular-card__price">${productPrice}</p>
+          <p class="popular-card__price">${escapeHtml(productPrice)}</p>
 
           <button
             class="popular-card__details-btn"
             type="button"
-            data-dessert-id="${productId}"
+            data-dessert-id="${escapeHtml(productId)}"
             aria-label="Відкрити деталі товару ${escapeHtml(productName)}"
           >
             ↗
@@ -141,9 +138,76 @@ function createProductCard(product) {
   `;
 }
 
+function getProductId(product) {
+  return product._id || product.id || '';
+}
+
+function getProductName(product) {
+  return product.name || product.title || 'Десерт';
+}
+
+function getProductCategory(product) {
+  const category = product.category || product.type || product.categoryName;
+
+  if (!category) {
+    return 'Десерти';
+  }
+
+  if (typeof category === 'string') {
+    return category;
+  }
+
+  if (typeof category === 'object') {
+    return (
+      category.name ||
+      category.title ||
+      category.value ||
+      category.label ||
+      category.slug ||
+      'Десерти'
+    );
+  }
+
+  return 'Десерти';
+}
+
+function getProductDescription(product) {
+  return (
+    product.shortDescription ||
+    product.description ||
+    product.text ||
+    'Соковитий десерт з натуральними інгредієнтами.'
+  );
+}
+
+function getProductImage(product) {
+  const image =
+    product.image ||
+    product.img ||
+    product.preview ||
+    product.photo ||
+    product.imageUrl ||
+    product.thumbnail ||
+    '';
+
+  if (typeof image === 'string') {
+    return image;
+  }
+
+  if (typeof image === 'object' && image !== null) {
+    return image.url || image.src || image.path || image.medium || image.large || '';
+  }
+
+  return '';
+}
+
 function getProductPrice(price) {
   if (price === undefined || price === null || price === '') {
     return '';
+  }
+
+  if (typeof price === 'object') {
+    return `${price.value || price.amount || ''} грн`;
   }
 
   return `${price} грн`;
