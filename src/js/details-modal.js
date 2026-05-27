@@ -1,5 +1,5 @@
 import { getDessertDetailsById } from "./dessert-details-api.js";
-import { renderDetailsDessert } from "./render-function-modal-details.js";
+import { renderDetailsDessert, renderStars } from "./render-function-modal-details.js";
 import { showLoader, hideLoader } from "./render-function-modal-details.js";
 import { openOrderModal } from "./order-modal.js";
 
@@ -20,6 +20,7 @@ export async function openModal(id) {
   try {
     const data = await getDessertDetailsById(id);
     refs.content.innerHTML = renderDetailsDessert(data);
+    renderStars();
     const orderBtn = document.querySelector(".order-btn");
     orderBtn.disabled = false;
     orderBtn.addEventListener("click", () => {
