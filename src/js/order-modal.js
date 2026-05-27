@@ -3,15 +3,12 @@ import iziToast from 'izitoast';
 
 const ORDER_API_URL = 'https://deserts-store.b.goit.study/api/orders';
 
-// Тимчасовий fallback id для тесту модалки окремо.
-// Після інтеграції з details modal сюди буде приходити реальний dessertId.
-const DEFAULT_DESSERT_ID = '6852a9fcb459460cb6b47748';
-
 const orderBackdrop = document.querySelector('[data-order-backdrop]');
 const orderCloseBtn = document.querySelector('[data-order-close]');
 const orderForm = document.querySelector('[data-order-form]');
 
-let currentDessertId = DEFAULT_DESSERT_ID;
+let currentDessertId = null;
+let modalListenersAttached = false;
 
 function showSuccessToast(orderNum) {
   iziToast.success({
@@ -31,15 +28,20 @@ function showErrorToast(message) {
   });
 }
 
-function openOrderModal(dessertId = DEFAULT_DESSERT_ID) {
+function openOrderModal(dessertId) {
   if (!orderBackdrop) return;
+
+  if (!dessertId) {
+    showErrorToast('Не вдалося визначити десерт для замовлення.');
+    return;
+  }
 
   currentDessertId = dessertId;
 
   orderBackdrop.classList.remove('is-hidden');
   document.body.classList.add('modal-open');
 
-  document.addEventListener('keydown', onEscKeyPress);
+  addModalListeners();
 }
 
 function closeOrderModal() {
@@ -48,7 +50,29 @@ function closeOrderModal() {
   orderBackdrop.classList.add('is-hidden');
   document.body.classList.remove('modal-open');
 
+  removeModalListeners();
+}
+
+function addModalListeners() {
+  if (modalListenersAttached) return;
+
+  orderCloseBtn?.addEventListener('click', closeOrderModal);
+  orderBackdrop?.addEventListener('click', onBackdropClick);
+  orderForm?.addEventListener('submit', onOrderFormSubmit);
+  document.addEventListener('keydown', onEscKeyPress);
+
+  modalListenersAttached = true;
+}
+
+function removeModalListeners() {
+  if (!modalListenersAttached) return;
+
+  orderCloseBtn?.removeEventListener('click', closeOrderModal);
+  orderBackdrop?.removeEventListener('click', onBackdropClick);
+  orderForm?.removeEventListener('submit', onOrderFormSubmit);
   document.removeEventListener('keydown', onEscKeyPress);
+
+  modalListenersAttached = false;
 }
 
 function onEscKeyPress(event) {
@@ -66,6 +90,11 @@ function onBackdropClick(event) {
 async function onOrderFormSubmit(event) {
   event.preventDefault();
 
+  if (!orderForm.checkValidity()) {
+    orderForm.reportValidity();
+    return;
+  }
+
   const submitBtn = orderForm.querySelector('.order-form-submit');
   const formData = new FormData(orderForm);
 
@@ -75,11 +104,6 @@ async function onOrderFormSubmit(event) {
     dessertId: currentDessertId,
     comment: formData.get('comment').trim(),
   };
-
-  if (!orderData.name || !orderData.phone || !orderData.comment) {
-    showErrorToast('Будь ласка, заповніть усі поля форми.');
-    return;
-  }
 
   try {
     if (submitBtn) {
@@ -106,12 +130,4 @@ async function onOrderFormSubmit(event) {
   }
 }
 
-orderCloseBtn?.addEventListener('click', closeOrderModal);
-orderBackdrop?.addEventListener('click', onBackdropClick);
-orderForm?.addEventListener('submit', onOrderFormSubmit);
-
-window.openOrderModal = openOrderModal;
-
-// Для інтеграції з details modal:
-// import { openOrderModal } from './order-modal';
 export { openOrderModal };
