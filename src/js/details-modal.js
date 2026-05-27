@@ -2,13 +2,33 @@ import { getDessertDetailsById } from "./dessert-details-api.js";
 import { renderDetailsDessert } from "./render-function-modal-details.js";
 import { showLoader, hideLoader } from "./render-function-modal-details.js";
 import { openOrderModal } from "./order-modal.js";
+import Raty from 'raty-js';
+import 'raty-js/src/raty.css';
 
 import iziToast from "izitoast";
+import { space } from "postcss/lib/list";
 const refs = {
     inner:document.querySelector("[data-modal-inner]"),
     backdrop: document.querySelector("[data-modal]"),
     content: document.querySelector("[data-modal-content]"),
     closeBtn: document.querySelector("[data-modal-close]"),
+}
+
+function initRating() {
+  const ratingEl = refs.content.querySelector(".rating");
+
+  if (!ratingEl) return;
+
+  const rate = Number(ratingEl.dataset.rating);
+
+  new Raty(ratingEl, {
+    starType: 'i',
+    readOnly: true,
+    score: rate,
+    halfShow: true,
+    space: true,
+    hints: ['1', '2', '3', '4', '5'],
+  }).init();
 }
 
 export async function openModal(id) {
@@ -20,6 +40,7 @@ export async function openModal(id) {
   try {
     const data = await getDessertDetailsById(id);
     refs.content.innerHTML = renderDetailsDessert(data);
+    initRating();
     const orderBtn = document.querySelector(".order-btn");
     orderBtn.disabled = false;
     orderBtn.addEventListener("click", () => {

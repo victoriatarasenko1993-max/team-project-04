@@ -54,7 +54,15 @@
     background: transparent;
     cursor: pointer;
 }
-
+.rating{
+    display: inline-flex;
+        gap: 4px;
+        margin-bottom: 24px;
+        color: #080c0c;
+        pointer-events: none;
+        line-height: 0;
+        
+}
 .modal-close-icon {
     fill: #080c0c;
     transition: all 200ms ease;
@@ -89,9 +97,7 @@
     color: var(--color-scheme-1-text);
     margin-bottom: 24px;   
 }
-.stars{
-    margin-bottom: 24px;
-}
+
 .description{
     font-family: var(--font-family);
     font-weight: 400;
@@ -172,6 +178,7 @@
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
+        flex-wrap: nowrap;
         gap:24px;
     }
     .order-btn {
