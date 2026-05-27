@@ -139,7 +139,7 @@
         cursor: not-allowed;
     }
 
-    .about-pagination {
+    .swiper-pagination {
         position: static !important;;
         margin-top: 48px;
         display: flex;
@@ -148,7 +148,7 @@
         gap: 9px;
     }
 
-    .about-pagination-bullet {
+    .swiper-pagination-bullet {
         width: 8px;
         height: 8px;
         background: #c4c7c7;
@@ -159,13 +159,13 @@
         transition: background-color 0.25s ease, transform 0.25s ease;
     }
 
-    .about-pagination-bullet:hover,
-    .about-pagination-bullet:focus {
+    .swiper-pagination-bullet:hover,
+    .swiper-pagination-bullet:focus {
         cursor: pointer;
         transform: scale(1.15);
     }
         
-    .about-pagination-bullet-active {
+   .swiper-pagination-bullet-active {
         background-color: #080c0c;
     }
 }
