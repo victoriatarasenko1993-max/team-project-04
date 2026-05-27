@@ -22,11 +22,13 @@ function initRating() {
   const rate = Number(ratingEl.dataset.rating);
 
   new Raty(ratingEl, {
+    starType: 'i',
     readOnly: true,
     score: rate,
     halfShow: true,
     space: false,
-  });
+    hints: ['1', '2', '3', '4', '5'],
+  }).init();
 }
 
 export async function openModal(id) {
