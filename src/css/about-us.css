@@ -13,10 +13,11 @@
     line-height: 1.2;
     letter-spacing: -0.01em;
     margin-bottom: 24px;
+    text-wrap: balance;
 }
 
 .about-text {
-  max-width: 335px;
+    max-width: 335px;
     margin: 0 auto;
 }
 
@@ -38,9 +39,11 @@
 }
 
 @media screen and (min-width: 768px) {
+
     .about-text {
         max-width: 704px;
     }
+
     .about-gallery-mobile {
         display: none;
     }
@@ -106,7 +109,7 @@
         opacity 250ms ease,
         transform 250ms ease;
     }
-    
+  
     .about-btn-prev {
         left: 0;
         transform: translate(-50%, -50%);
@@ -136,7 +139,7 @@
         cursor: not-allowed;
     }
 
-    .about-pagination {
+    .swiper-pagination {
         position: static !important;;
         margin-top: 48px;
         display: flex;
@@ -145,7 +148,7 @@
         gap: 9px;
     }
 
-    .about-pagination-bullet {
+    .swiper-pagination-bullet {
         width: 8px;
         height: 8px;
         background: #c4c7c7;
@@ -156,13 +159,13 @@
         transition: background-color 0.25s ease, transform 0.25s ease;
     }
 
-    .about-pagination-bullet:hover,
-    .about-pagination-bullet:focus {
+    .swiper-pagination-bullet:hover,
+    .swiper-pagination-bullet:focus {
         cursor: pointer;
         transform: scale(1.15);
     }
         
-    .about-pagination-bullet-active {
+   .swiper-pagination-bullet-active {
         background-color: #080c0c;
     }
 }
@@ -173,6 +176,10 @@
         padding: 80px 0;
     }
 
+    .about-text {
+        max-width: 768px;
+    }
+    
     .about-title {
     font-size: 48px;
     }

@@ -1,8 +1,9 @@
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 let aboutSwiper = null;
 
@@ -13,7 +14,7 @@ function enableSwiper() {
   if (!swiperEl) return;
 
   aboutSwiper = new Swiper(swiperEl, {
-    modules: [Navigation],
+    modules: [Navigation, Pagination],
 
     slidesPerView: 2,
     slidesPerGroup: 1,
@@ -24,32 +25,14 @@ function enableSwiper() {
     navigation: {
       nextEl: '.about-btn-next',
       prevEl: '.about-btn-prev',
-      disabledClass: 'is-disabled',
+    },
+
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      type: 'bullets',
     },
   });
-
-  const bullets = document.querySelectorAll('.about-pagination-bullet');
-
-  function setActive(index) {
-    bullets.forEach((b, i) => {
-      b.classList.toggle('about-pagination-bullet-active', i === index);
-    });
-  }
-
-  bullets.forEach((bullet) => {
-    bullet.addEventListener('click', () => {
-      const index = Number(bullet.dataset.index);
-
-      aboutSwiper.slideTo(index);
-      setActive(index);
-    });
-  });
-
-  aboutSwiper.on('slideChange', () => {
-    setActive(aboutSwiper.activeIndex);
-  });
-
-  setActive(aboutSwiper.activeIndex);
 }
 
 function initAboutSwiper() {
