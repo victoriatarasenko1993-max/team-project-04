@@ -1,4 +1,6 @@
 // CSS-Star-Rating
+import Raty from 'raty-js'; 
+import 'raty-js/src/raty.css';
 
 function renderStars(rate) {
   const fullStars = Math.floor(rate);
