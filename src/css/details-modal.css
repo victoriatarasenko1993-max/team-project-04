@@ -148,6 +148,11 @@
         max-width: 704px;
         padding: 64px 32px;
     }
+    .modal-inner{
+       display: flex;
+       flex-wrap: wrap;
+       gap: 24px;
+    }
     .order-btn {
         width: 310px;
         height: 44px;
@@ -171,6 +176,7 @@
    
     .modal-inner{
         display: flex;
+        flex-wrap: nowrap;
         flex-direction: row;
         flex-wrap: nowrap;
         gap:24px;

@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
 
 .hero {
+    max-width: 1440px;
+    margin: 0 auto; 
     width: 100%;
-    max-width: 375px;
-    height: 738px;
-    margin: 0 auto;
-
+    min-height: 738px;
     background-image: url('../img/hero/Header-mobile.jpg');
     background-repeat: no-repeat;
     background-position: center;
@@ -20,8 +19,9 @@
 
     width: 100%;
     max-width: 375px;
-    height: 100%;
+    min-height: 738px;
     padding: 0 20px;
+    margin: 0 auto;
 }
 
 .hero-content {
@@ -115,14 +115,14 @@
 /* Tablet */
 @media screen and (min-width: 768px) {
     .hero {
-        max-width: 768px;
-        height: 900px;
+        min-height: 900px;
 
         background-image: url('../img/hero/Header-tab.jpg');
     }
 
     .hero .hero-container {
         max-width: 768px;
+        min-height: 900px;
         padding: 0 32px;
     }
 
@@ -158,14 +158,14 @@ screen and (min-width: 768px) and (min-device-pixel-ratio: 2) {
 /* Desktop */
 @media screen and (min-width: 1440px) {
     .hero {
-        max-width: 1440px;
-        height: 900px;
+        min-height: 900px;
 
         background-image: url('../img/hero/Header.jpg');
     }
 
     .hero .hero-container {
         max-width: 1440px;
+        min-height: 900px;
         padding: 0 64px;
     }
 
@@ -175,7 +175,7 @@ screen and (min-width: 768px) and (min-device-pixel-ratio: 2) {
 
     .hero-text-wrap {
         max-width: 768px;
-        margin-bottom: 16px;
+        margin-bottom: 32px;
     }
 
     .hero-title {
