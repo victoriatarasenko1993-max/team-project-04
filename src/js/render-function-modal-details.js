@@ -1,43 +1,16 @@
 // CSS-Star-Rating
 
-function renderStars(rate) {
-  const fullStars = Math.floor(rate);
-  const hasHalf = rate % 1 !== 0;
-  const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
-
-  return `
-    <div class="stars">
-      
-      ${Array(fullStars)
-        .fill()
-        .map(() => `
-          <svg class="star filled">
-            <use href="#icon-star"></use>
-          </svg>
-        `)
-        .join("")}
-
-      ${
-        hasHalf
-          ? `
-        <svg class="star half">
-          <use href="#icon-star"></use>
-        </svg>
-      `
-          : ""
-      }
-
-      ${Array(emptyStars)
-        .fill()
-        .map(() => `
-          <svg class="star empty">
-            <use href="#icon-star"></use>
-          </svg>
-        `)
-        .join("")}
-
-    </div>
-  `;
+export function renderStars() {
+document.querySelectorAll('.desserts-details-rating').forEach(ratingEl => {
+    new Raty(ratingEl, {
+      score: Number(ratingEl.dataset.rating),
+      readOnly: true,
+      halfShow: true,
+      starType: 'i',
+      space: false,
+      hints: ['1', '2', '3', '4', '5'],
+    }).init();
+  });
 }
 
 export function renderDetailsDessert({
@@ -51,7 +24,11 @@ export function renderDetailsDessert({
   return `<div class="modal-inner" data-modal-inner><img class="dessert-details-img" src="${image}" alt="${name}"/>
     <div class="modal-text"><h3 class="dessert-details-title">${name}</h3>
     <p class="price">${price} грн</p>
-    ${renderStars(rate)}
+    <div
+          class="desserts-details-rating"
+          data-rating="${Number(rate)}"
+          aria-label="Оцінка ${Number(rate)} з 5"
+        ></div>
     <p class="description">${description}</p>
     <p class="composition"><strong>Склад:</strong> ${composition}</p><button class="order-btn" data-order-btn disabled>Перейти до замовлення</button></div>
     </div>
