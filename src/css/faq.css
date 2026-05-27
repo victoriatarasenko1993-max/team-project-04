@@ -1,6 +1,8 @@
 
 /* FAQ Section */
-
+.faq-container {
+  max-width: 375px;
+}
 .faq-section {
   padding-top: 64px;
   padding-bottom: 64px;
@@ -119,6 +121,11 @@
 /* Tablet and Desktop Styles */
 
 @media only screen and (min-width: 768px) {
+ .faq-container {
+    max-width: 704px;
+    margin: 0 auto;
+  }
+ 
   .faq-question.ac-trigger {
     gap: 22.5px;
   }
@@ -127,10 +134,10 @@
 
 
 @media screen and (min-width: 1440px) {
-  .faq-accordion {
+  .faq-container {
     max-width: 1064px;
  }
-}
+
   .faq-section {
     padding-top: 80px;
     padding-bottom: 80px;
@@ -145,6 +152,6 @@
     gap: 22.5px;
     font-size: 18px;
   }
-
+}
 
 

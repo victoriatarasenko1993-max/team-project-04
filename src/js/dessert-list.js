@@ -20,12 +20,23 @@ loadMoreBtn.addEventListener("click", onLoadMore)
 
 categoriesListTablet.addEventListener("change", async (event) => {
     currentCategory = event.target.value;
+
+     const currentRadio = document.querySelector(
+        `input[name="dessert"][value="${currentCategory}"]`
+    );
+
+    if (currentRadio) {
+        currentRadio.checked = true;
+    }
     await resetAndLoadDesserts();
 })
 
 categoriesListDesktop.addEventListener("change", async (event) => {
     if (event.target.name !== "dessert") return;
     currentCategory = event.target.value;
+
+    categoriesListTablet.value = currentCategory;
+    
     await resetAndLoadDesserts();
 });
 
