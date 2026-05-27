@@ -142,9 +142,6 @@
         max-width: 704px;
         padding: 64px 32px;
     }
-    .modal-inner{
-    
-    }
     .order-btn {
         width: 310px;
         height: 44px;
@@ -240,4 +237,6 @@
 .star.half {
   fill: url(#half-gradient);
 }
-
+.rating {
+    margin-bottom: 16px;
+}
