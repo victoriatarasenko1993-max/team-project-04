@@ -1,3 +1,11 @@
+import axios from 'axios';
+import iziToast from 'izitoast';
+
+import 'izitoast/dist/css/iziToast.min.css';
+
+import { openModal } from './details-modal.js';
+import icons from '../img/icons.svg';
+
 const BASE_URL = 'https://deserts-store.b.goit.study/api';
 
 const refs = {
@@ -51,11 +59,18 @@ async function initPopularProducts() {
     refs.prevBtn.addEventListener('click', onPrevClick);
     refs.nextBtn.addEventListener('click', onNextClick);
     refs.pagination.addEventListener('click', onPaginationClick);
+    refs.list.addEventListener('click', onProductClick);
     window.addEventListener('resize', onResize);
 
     initSwipe();
   } catch (error) {
     console.error('POPULAR PRODUCTS ERROR:', error);
+
+    iziToast.error({
+      title: 'Помилка',
+      message: 'Не вдалося завантажити популярні товари',
+      position: 'topRight',
+    });
 
     refs.list.innerHTML = `
       <li class="popular-products__empty">
@@ -70,15 +85,7 @@ async function initPopularProducts() {
 }
 
 async function fetchPopularProducts() {
-  const response = await fetch(`${BASE_URL}/desserts?type=popular`);
-
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch popular products. Status: ${response.status}`
-    );
-  }
-
-  const data = await response.json();
+  const { data } = await axios(`${BASE_URL}/desserts?type=popular`);
 
   return normalizeProductsResponse(data);
 }
@@ -88,7 +95,7 @@ function normalizeProductsResponse(data) {
     return data;
   }
 
-  return data.data || data.desserts || data.results || data.items || [];
+  return data.desserts || data.data || data.results || data.items || [];
 }
 
 function renderProducts(items) {
@@ -105,37 +112,53 @@ function createProductCard(product) {
 
   return `
     <li class="popular-products__item">
-      <article class="popular-card" data-id="${escapeHtml(productId)}">
+      <article class="dessert-list-item">
         <img
-          class="popular-card__image"
           src="${escapeHtml(productImage)}"
           alt="${escapeHtml(productName)}"
+          class="desserts-list-img"
           loading="lazy"
-        />
+        >
 
-        <p class="popular-card__category">${escapeHtml(productCategory)}</p>
+        <p class="desserts-item-categorie">${escapeHtml(productCategory)}</p>
 
-        <h3 class="popular-card__title">${escapeHtml(productName)}</h3>
+        <h3 class="desserts-item-title">${escapeHtml(productName)}</h3>
 
-        <p class="popular-card__description">${escapeHtml(
-          productDescription
-        )}</p>
+        <p class="desserts-item-descr">${escapeHtml(productDescription)}</p>
 
-        <div class="popular-card__bottom">
-          <p class="popular-card__price">${escapeHtml(productPrice)}</p>
+        <div class="dessert-card-bottom">
+          <p class="desserts-item-price">${escapeHtml(productPrice)}</p>
 
           <button
-            class="popular-card__details-btn"
+            class="desserts-item-btn"
             type="button"
-            data-dessert-id="${escapeHtml(productId)}"
+            data-id="${escapeHtml(productId)}"
             aria-label="Відкрити деталі товару ${escapeHtml(productName)}"
           >
-            ↗
+            <svg height="24" width="24">
+              <use href="${icons}#icon-arrow-outward"></use>
+            </svg>
           </button>
         </div>
       </article>
     </li>
   `;
+}
+
+async function onProductClick(event) {
+  const button = event.target.closest('.desserts-item-btn');
+
+  if (!button) {
+    return;
+  }
+
+  const dessertId = button.dataset.id;
+
+  if (!dessertId) {
+    return;
+  }
+
+  await openModal(dessertId);
 }
 
 function getProductId(product) {
@@ -173,8 +196,8 @@ function getProductCategory(product) {
 
 function getProductDescription(product) {
   return (
-    product.shortDescription ||
     product.description ||
+    product.shortDescription ||
     product.text ||
     'Соковитий десерт з натуральними інгредієнтами.'
   );
@@ -207,7 +230,9 @@ function getProductPrice(price) {
   }
 
   if (typeof price === 'object') {
-    return `${price.value || price.amount || ''} грн`;
+    const value = price.value || price.amount || '';
+
+    return value ? `${value} грн` : '';
   }
 
   return `${price} грн`;
