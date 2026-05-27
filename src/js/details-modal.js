@@ -14,7 +14,7 @@ const refs = {
 export async function openModal(id) {
     refs.backdrop.classList.remove("is-hidden");
     document.body.style.overflow = "hidden";
-    
+  addListeners();
   refs.content.innerHTML = "";
     showLoader();
   try {
@@ -41,14 +41,25 @@ function closeModal() {
   refs.backdrop.classList.add("is-hidden");
   document.body.style.overflow = "";
   refs.content.innerHTML = "";
+  removeListeners();
 }
 
-refs.closeBtn.addEventListener("click", closeModal);
-
-refs.backdrop.addEventListener("click", (e) => {
-  if (e.target === refs.backdrop) closeModal();
-});
-
-document.addEventListener("keydown", (e) => {
+function onEscPress(e) {
   if (e.key === "Escape") closeModal();
-});
+}
+
+function onBackdropClick(e) {
+  if (e.target === refs.backdrop) closeModal();
+}
+
+function addListeners() {
+  refs.closeBtn.addEventListener("click", closeModal);
+  refs.backdrop.addEventListener("click", onBackdropClick);
+  document.addEventListener("keydown", onEscPress);
+}
+
+function removeListeners() {
+  refs.closeBtn.removeEventListener("click", closeModal);
+  refs.backdrop.removeEventListener("click", onBackdropClick);
+  document.removeEventListener("keydown", onEscPress);
+}
