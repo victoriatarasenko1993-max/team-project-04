@@ -26,7 +26,7 @@ function initRating() {
     readOnly: true,
     score: rate,
     halfShow: true,
-    space: false,
+    space: true,
     hints: ['1', '2', '3', '4', '5'],
   }).init();
 }
