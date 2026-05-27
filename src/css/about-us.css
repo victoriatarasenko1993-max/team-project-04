@@ -109,7 +109,7 @@
         opacity 250ms ease,
         transform 250ms ease;
     }
-  
+
     .about-btn-prev {
         left: 0;
         transform: translate(-50%, -50%);
