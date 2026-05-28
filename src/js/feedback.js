@@ -28,6 +28,14 @@ async function initFeedback() {
 
   try {
     const feedbacks = await fetchFeedbacks();
+
+      if (feedbacks.length < 3) {
+      refs.list.hidden = false;
+      refs.list.innerHTML =
+        '<li class="feedback-message">Недостатньо відгуків для відображення.</li>';
+      return;
+    }
+    
     renderFeedbacks(feedbacks);
     refs.list.hidden = false;
     refs.prevBtn.hidden = false;
