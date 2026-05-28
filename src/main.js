@@ -1,6 +1,7 @@
 'use strict';
 
 import './js/dessert-list.js';
+import './js/popular-products.js';
 import './js/feedback.js';
 import './js/faq.js';
 import './js/about-us.js';
