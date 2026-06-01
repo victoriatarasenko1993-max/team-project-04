@@ -279,6 +279,16 @@
     padding-bottom: 96px;
   }
 
+<<<<<<< Updated upstream
+=======
+/* Tablet: 2 cards like desserts section */
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+  .popular-products {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+>>>>>>> Stashed changes
   .popular-products__container {
     max-width: 768px;
     padding-left: 32px;
@@ -286,11 +296,19 @@
   }
 
   .popular-products__title {
+<<<<<<< Updated upstream
     margin-bottom: 32px;
 
     font-size: 32px;
     line-height: 1.12;
     font-weight: 400;
+=======
+    margin-bottom: 40px;
+
+    font-size: 36px;
+    line-height: 1.2;
+    text-align: left;
+>>>>>>> Stashed changes
   }
 
   .popular-products__list {
@@ -299,6 +317,7 @@
 
   .popular-products__item {
     flex: 0 0 calc((100% - 16px) / 2);
+<<<<<<< Updated upstream
     max-width: calc((100% - 16px) / 2);
   }
 
@@ -315,6 +334,76 @@
   .popular-products__btn {
     width: 40px;
     height: 40px;
+=======
+    min-width: 0;
+  }
+
+  .popular-products .dessert-list-item {
+    max-width: 344px !important;
+    flex-basis: auto !important;
+    min-height: 440px !important;
+    padding: 16px !important;
+
+    border: 1px solid #080c0c !important;
+    border-radius: 16px !important;
+    background-color: #f5fdfd !important;
+  }
+
+  .popular-products .desserts-list-img {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+
+    border-radius: 8px !important;
+  }
+
+  .popular-products .desserts-item-categorie {
+    margin-top: 16px !important;
+    margin-bottom: 12px !important;
+
+    min-height: auto !important;
+
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  .popular-products .desserts-item-title {
+    margin-bottom: 4px !important;
+
+    min-height: auto !important;
+
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+  }
+
+  .popular-products .desserts-item-descr {
+    min-height: auto !important;
+
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  .popular-products .desserts-item-price {
+    font-size: 20px !important;
+    line-height: 1.5 !important;
+  }
+
+  .popular-products .desserts-item-btn {
+    width: 44px !important;
+    height: 44px !important;
+    padding: 10px !important;
+
+    border: 2px solid #080c0c !important;
+  }
+
+  .popular-products .desserts-item-btn svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .popular-products__controls {
+    margin-top: 32px;
+>>>>>>> Stashed changes
   }
 }
 
