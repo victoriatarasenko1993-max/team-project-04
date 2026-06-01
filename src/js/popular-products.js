@@ -20,6 +20,7 @@ let products = [];
 let currentIndex = 0;
 let itemsPerView = 1;
 let maxIndex = 0;
+let resizeTimerId = null;
 
 initPopularProducts();
 
@@ -38,16 +39,7 @@ async function initPopularProducts() {
     products = await fetchPopularProducts();
 
     if (!products.length) {
-      refs.list.innerHTML = `
-        <li class="popular-products__empty">
-          Популярні товари не знайдено
-        </li>
-      `;
-
-      refs.prevBtn.disabled = true;
-      refs.nextBtn.disabled = true;
-      refs.pagination.innerHTML = '';
-
+      renderEmptyState('Популярні товари не знайдено');
       return;
     }
 
@@ -72,21 +64,12 @@ async function initPopularProducts() {
       position: 'topRight',
     });
 
-    refs.list.innerHTML = `
-      <li class="popular-products__empty">
-        Не вдалося завантажити популярні товари
-      </li>
-    `;
-
-    refs.prevBtn.disabled = true;
-    refs.nextBtn.disabled = true;
-    refs.pagination.innerHTML = '';
+    renderEmptyState('Не вдалося завантажити популярні товари');
   }
 }
 
 async function fetchPopularProducts() {
   const { data } = await axios(`${BASE_URL}/desserts?type=popular`);
-
   return normalizeProductsResponse(data);
 }
 
@@ -96,6 +79,18 @@ function normalizeProductsResponse(data) {
   }
 
   return data.desserts || data.data || data.results || data.items || [];
+}
+
+function renderEmptyState(message) {
+  refs.list.innerHTML = `
+    <li class="popular-products__empty">
+      ${escapeHtml(message)}
+    </li>
+  `;
+
+  refs.prevBtn.disabled = true;
+  refs.nextBtn.disabled = true;
+  refs.pagination.innerHTML = '';
 }
 
 function renderProducts(items) {
@@ -231,7 +226,6 @@ function getProductPrice(price) {
 
   if (typeof price === 'object') {
     const value = price.value || price.amount || '';
-
     return value ? `${value} грн` : '';
   }
 
@@ -241,7 +235,7 @@ function getProductPrice(price) {
 function updateItemsPerView() {
   const width = window.innerWidth;
 
-  if (width >= 1440) {
+  if (width >= 1024) {
     itemsPerView = 3;
   } else if (width >= 768) {
     itemsPerView = 2;
@@ -277,7 +271,6 @@ function updateSlider() {
 
 function getListGap(element) {
   const styles = window.getComputedStyle(element);
-
   return parseFloat(styles.columnGap || styles.gap) || 0;
 }
 
@@ -339,9 +332,20 @@ function updatePagination() {
 }
 
 function onResize() {
-  updateItemsPerView();
-  renderPagination();
-  updateSlider();
+  clearTimeout(resizeTimerId);
+
+  resizeTimerId = setTimeout(() => {
+    const previousItemsPerView = itemsPerView;
+
+    updateItemsPerView();
+
+    if (previousItemsPerView !== itemsPerView) {
+      currentIndex = 0;
+    }
+
+    renderPagination();
+    updateSlider();
+  }, 150);
 }
 
 function initSwipe() {
