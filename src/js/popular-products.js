@@ -64,9 +64,6 @@ async function fetchPopularProducts() {
   }
 
   const result = await response.json();
-
-  console.log('Popular products API response:', result);
-
   const products = normalizeProducts(result);
 
   if (!products.length) {
@@ -97,9 +94,7 @@ function normalizeProducts(data) {
     data.data?.results,
   ];
 
-  const foundArray = possibleArrays.find(Array.isArray);
-
-  return foundArray || [];
+  return possibleArrays.find(Array.isArray) || [];
 }
 
 function addListeners() {
@@ -257,34 +252,32 @@ function createProductMarkup(product) {
 
   return `
     <li class="popular-products__item">
-      <article class="dessert-list-item">
+      <article class="popular-products-card">
         <img
-          class="desserts-list-img"
+          class="popular-products-card__img"
           src="${escapeHtml(image)}"
           alt="${escapeHtml(title)}"
           loading="lazy"
-          width="278"
-          height="230"
         >
 
-        <p class="desserts-item-categorie">${escapeHtml(category)}</p>
+        <p class="popular-products-card__category">${escapeHtml(category)}</p>
 
-        <h3 class="desserts-item-title">${escapeHtml(title)}</h3>
+        <h3 class="popular-products-card__title">${escapeHtml(title)}</h3>
 
-        <p class="desserts-item-descr">${escapeHtml(description)}</p>
+        <p class="popular-products-card__descr">${escapeHtml(description)}</p>
 
-        <div class="dessert-card-bottom">
-          <p class="desserts-item-price">${price}</p>
+        <div class="popular-products-card__bottom">
+          <p class="popular-products-card__price">${price}</p>
 
           <button
-            class="desserts-item-btn"
+            class="popular-products-card__btn"
             type="button"
             data-dessert-id="${escapeHtml(id)}"
             aria-label="Відкрити детальну інформацію про ${escapeHtml(title)}"
             ${id ? '' : 'disabled'}
           >
             <svg
-              class="desserts-item-btn-icon"
+              class="popular-products-card__btn-icon"
               width="24"
               height="24"
               viewBox="0 0 24 24"
