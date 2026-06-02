@@ -1,0 +1,275 @@
+.popular-products {
+  padding: 64px 0 40px;
+}
+
+.popular-products__container {
+  position: relative;
+}
+
+.popular-products__title {
+  margin-bottom: 40px;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #080c0c;
+}
+
+.popular-products__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.popular-products__list {
+  display: flex;
+  gap: 32px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.popular-products__list.is-not-animated {
+  transition: none;
+}
+
+.popular-products__item {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.popular-products .dessert-list-item {
+  width: 100%;
+  max-width: none;
+  flex-basis: auto;
+  min-height: 433px;
+}
+
+.popular-products .desserts-list-img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.popular-products .desserts-item-btn {
+  color: #080c0c;
+}
+
+.popular-products .desserts-item-btn-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.popular-products__btn-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.popular-products__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.popular-products__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.popular-products__pagination-item {
+  display: flex;
+}
+
+.popular-products__pagination-btn {
+  display: block;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 1px solid #080c0c;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  transition:
+    width 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.popular-products__pagination-btn.is-active {
+  width: 24px;
+  border-radius: 100px;
+  background-color: #080c0c;
+}
+
+.popular-products__buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.popular-products__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid #080c0c;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #080c0c;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.popular-products__btn:hover:not(:disabled),
+.popular-products__btn:focus-visible:not(:disabled) {
+  background-color: #f19898;
+}
+
+.popular-products__btn:active:not(:disabled) {
+  background-color: #c07979;
+}
+
+.popular-products__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.popular-products__message {
+  width: 100%;
+  padding: 24px;
+  border: 1px solid #080c0c;
+  border-radius: 16px;
+  background-color: #f5fdfd;
+  text-align: center;
+  color: #080c0c;
+}
+
+@media only screen and (min-width: 768px) {
+  .popular-products__title {
+    text-align: start;
+  }
+
+  .popular-products__list {
+    gap: 16px;
+  }
+
+  .popular-products__item {
+    flex: 0 0 calc((100% - 16px) / 2);
+    max-width: calc((100% - 16px) / 2);
+  }
+
+  .popular-products .dessert-list-item {
+    min-height: 440px;
+  }
+
+  .popular-products__controls {
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .popular-products {
+    padding: 80px 0 56px;
+  }
+
+  .popular-products__title {
+    margin-bottom: 40px;
+    font-size: 48px;
+    text-align: center;
+  }
+
+  .popular-products__viewport {
+    max-width: 1312px;
+    margin: 0 auto;
+  }
+
+  .popular-products__list {
+    gap: 24px;
+  }
+
+  .popular-products__item {
+    flex: 0 0 calc((100% - 48px) / 3);
+    max-width: calc((100% - 48px) / 3);
+  }
+
+  .popular-products .dessert-list-item {
+    min-height: 431px;
+  }
+
+  .popular-products__controls {
+    max-width: 1312px;
+    margin: 40px auto 0;
+  }
+}
+.popular-products__item {
+  display: flex;
+}
+
+.popular-products .dessert-list-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 392px;
+}
+
+.popular-products .desserts-list-img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.popular-products .desserts-item-categorie {
+  min-height: 21px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.popular-products .desserts-item-title {
+  min-height: 54px;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.popular-products .desserts-item-descr {
+  min-height: 42px;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.popular-products .dessert-card-bottom {
+  margin-top: auto;
+}
