@@ -1,7 +1,9 @@
+import { openModal } from './details-modal.js';
+
 const POPULAR_API_URL =
   'https://deserts-store.b.goit.study/api/desserts?type=popular';
 
-const API_ORIGIN = 'https://desserts-store.b.goit.study';
+const API_ORIGIN = 'https://deserts-store.b.goit.study';
 
 const refs = {
   section: document.querySelector('#popular-products'),
@@ -104,6 +106,7 @@ function addListeners() {
   refs.prevBtn.addEventListener('click', onPrevBtnClick);
   refs.nextBtn.addEventListener('click', onNextBtnClick);
   refs.pagination.addEventListener('click', onPaginationClick);
+  refs.list.addEventListener('click', onDessertCardBtnClick);
 
   window.addEventListener(
     'resize',
@@ -114,7 +117,7 @@ function addListeners() {
 }
 
 function onPrevBtnClick() {
-  if (state.currentPage === 0) {
+  if (state.currentPage <= 0) {
     return;
   }
 
@@ -140,6 +143,22 @@ function onPaginationClick(event) {
 
   state.currentPage = Number(button.dataset.popularPage);
   moveSlider();
+}
+
+function onDessertCardBtnClick(event) {
+  const button = event.target.closest('[data-dessert-id]');
+
+  if (!button) {
+    return;
+  }
+
+  const dessertId = button.dataset.dessertId;
+
+  if (!dessertId) {
+    return;
+  }
+
+  openModal(dessertId);
 }
 
 function updateSlider(skipAnimation = false) {
@@ -197,8 +216,14 @@ function moveSlider(skipAnimation = false) {
 }
 
 function updateControls() {
-  refs.prevBtn.disabled = state.currentPage === 0;
-  refs.nextBtn.disabled = state.currentPage >= state.pagesCount - 1;
+  const isFirstPage = state.currentPage === 0;
+  const isLastPage = state.currentPage >= state.pagesCount - 1;
+
+  refs.prevBtn.disabled = isFirstPage;
+  refs.nextBtn.disabled = isLastPage;
+
+  refs.prevBtn.classList.toggle('is-disabled', isFirstPage);
+  refs.nextBtn.classList.toggle('is-disabled', isLastPage);
 
   refs.pagination
     .querySelectorAll('[data-popular-page]')
@@ -213,32 +238,17 @@ function updateControls() {
 function setControlsDisabled(disabled) {
   refs.prevBtn.disabled = disabled;
   refs.nextBtn.disabled = disabled;
+
+  refs.prevBtn.classList.toggle('is-disabled', disabled);
+  refs.nextBtn.classList.toggle('is-disabled', disabled);
 }
 
 function renderProducts(products) {
   refs.list.innerHTML = products.map(createProductMarkup).join('');
 }
-function getProductCategory(product) {
-  const category = product.category || product.type;
 
-  if (typeof category === 'string') {
-    return category;
-  }
-
-  if (category && typeof category === 'object') {
-    return (
-      category.name ||
-      category.title ||
-      category.value ||
-      category.label ||
-      category.slug ||
-      'Популярне'
-    );
-  }
-
-  return 'Популярне';
-}
 function createProductMarkup(product) {
+  const id = getProductId(product);
   const image = getProductImage(product);
   const title = product.name || product.title || 'Десерт';
   const category = getProductCategory(product);
@@ -266,32 +276,59 @@ function createProductMarkup(product) {
         <div class="dessert-card-bottom">
           <p class="desserts-item-price">${price}</p>
 
-        <button
-  class="desserts-item-btn"
-  type="button"
-  aria-label="Переглянути ${escapeHtml(title)}"
->
-  <svg
-    class="desserts-item-btn-icon"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    aria-hidden="true"
-  >
-    <path
-      d="M7 17L17 7M17 7H9M17 7V15"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </svg>
-</button>
+          <button
+            class="desserts-item-btn"
+            type="button"
+            data-dessert-id="${escapeHtml(id)}"
+            aria-label="Відкрити детальну інформацію про ${escapeHtml(title)}"
+            ${id ? '' : 'disabled'}
+          >
+            <svg
+              class="desserts-item-btn-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M7 17L17 7M17 7H9M17 7V15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
         </div>
       </article>
     </li>
   `;
+}
+
+function getProductId(product) {
+  return product._id || product.id || product.objectId || '';
+}
+
+function getProductCategory(product) {
+  const category = product.category || product.type;
+
+  if (typeof category === 'string') {
+    return category;
+  }
+
+  if (category && typeof category === 'object') {
+    return (
+      category.name ||
+      category.title ||
+      category.value ||
+      category.label ||
+      category.slug ||
+      'Популярне'
+    );
+  }
+
+  return 'Популярне';
 }
 
 function renderPagination() {
