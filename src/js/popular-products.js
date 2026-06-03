@@ -1,319 +1,132 @@
-import axios from 'axios';
-import iziToast from 'izitoast';
-
-import 'izitoast/dist/css/iziToast.min.css';
-
 import { openModal } from './details-modal.js';
-import icons from '../img/icons.svg';
 
-const BASE_URL = 'https://deserts-store.b.goit.study/api';
+const POPULAR_API_URL =
+  'https://deserts-store.b.goit.study/api/desserts?type=popular';
+
+const API_ORIGIN = 'https://deserts-store.b.goit.study';
 
 const refs = {
-  list: document.querySelector('[data-popular-list]'),
+  section: document.querySelector('#popular-products'),
   viewport: document.querySelector('[data-popular-viewport]'),
+  list: document.querySelector('[data-popular-list]'),
+  pagination: document.querySelector('[data-popular-pagination]'),
   prevBtn: document.querySelector('[data-popular-prev]'),
   nextBtn: document.querySelector('[data-popular-next]'),
-  pagination: document.querySelector('[data-popular-pagination]'),
 };
 
-let products = [];
-let currentIndex = 0;
-let itemsPerView = 1;
-let maxIndex = 0;
+const state = {
+  products: [],
+  currentPage: 0,
+  cardsPerPage: 1,
+  pagesCount: 1,
+};
 
 initPopularProducts();
 
 async function initPopularProducts() {
   if (
-    !refs.list ||
+    !refs.section ||
     !refs.viewport ||
+    !refs.list ||
+    !refs.pagination ||
     !refs.prevBtn ||
-    !refs.nextBtn ||
-    !refs.pagination
+    !refs.nextBtn
   ) {
     return;
   }
 
   try {
-    products = await fetchPopularProducts();
+    setControlsDisabled(true);
 
-    if (!products.length) {
-      refs.list.innerHTML = `
-        <li class="popular-products__empty">
-          Популярні товари не знайдено
-        </li>
-      `;
+    const products = await fetchPopularProducts();
 
-      refs.prevBtn.disabled = true;
-      refs.nextBtn.disabled = true;
-      refs.pagination.innerHTML = '';
+    state.products = products;
 
+    if (state.products.length < 3) {
+      renderMessage('Популярних товарів поки недостатньо для відображення.');
       return;
     }
 
-    updateItemsPerView();
-    renderProducts(products);
-    renderPagination();
-    updateSlider();
-
-    refs.prevBtn.addEventListener('click', onPrevClick);
-    refs.nextBtn.addEventListener('click', onNextClick);
-    refs.pagination.addEventListener('click', onPaginationClick);
-    refs.list.addEventListener('click', onProductClick);
-    window.addEventListener('resize', onResize);
-
-    initSwipe();
+    renderProducts(state.products);
+    updateSlider(true);
+    addListeners();
   } catch (error) {
-    console.error('POPULAR PRODUCTS ERROR:', error);
-
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалося завантажити популярні товари',
-      position: 'topRight',
-    });
-
-    refs.list.innerHTML = `
-      <li class="popular-products__empty">
-        Не вдалося завантажити популярні товари
-      </li>
-    `;
-
-    refs.prevBtn.disabled = true;
-    refs.nextBtn.disabled = true;
-    refs.pagination.innerHTML = '';
+    console.error('Popular products error:', error);
+    renderMessage('Не вдалося завантажити популярні товари. Спробуйте пізніше.');
   }
 }
 
 async function fetchPopularProducts() {
-  const { data } = await axios(`${BASE_URL}/desserts?type=popular`);
+  const response = await fetch(POPULAR_API_URL);
 
-  return normalizeProductsResponse(data);
+  if (!response.ok) {
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+
+  const result = await response.json();
+  const products = normalizeProducts(result);
+
+  if (!products.length) {
+    throw new Error('Products array was not found in API response.');
+  }
+
+  return products;
 }
 
-function normalizeProductsResponse(data) {
+function normalizeProducts(data) {
   if (Array.isArray(data)) {
     return data;
   }
 
-  return data.desserts || data.data || data.results || data.items || [];
-}
-
-function renderProducts(items) {
-  refs.list.innerHTML = items.map(createProductCard).join('');
-}
-
-function createProductCard(product) {
-  const productId = getProductId(product);
-  const productName = getProductName(product);
-  const productCategory = getProductCategory(product);
-  const productDescription = getProductDescription(product);
-  const productImage = getProductImage(product);
-  const productPrice = getProductPrice(product.price);
-
-  return `
-    <li class="popular-products__item">
-      <article class="dessert-list-item">
-        <img
-          src="${escapeHtml(productImage)}"
-          alt="${escapeHtml(productName)}"
-          class="desserts-list-img"
-          loading="lazy"
-        >
-
-        <p class="desserts-item-categorie">${escapeHtml(productCategory)}</p>
-
-        <h3 class="desserts-item-title">${escapeHtml(productName)}</h3>
-
-        <p class="desserts-item-descr">${escapeHtml(productDescription)}</p>
-
-        <div class="dessert-card-bottom">
-          <p class="desserts-item-price">${escapeHtml(productPrice)}</p>
-
-          <button
-            class="desserts-item-btn"
-            type="button"
-            data-id="${escapeHtml(productId)}"
-            aria-label="Відкрити деталі товару ${escapeHtml(productName)}"
-          >
-            <svg height="24" width="24">
-              <use href="${icons}#icon-arrow-outward"></use>
-            </svg>
-          </button>
-        </div>
-      </article>
-    </li>
-  `;
-}
-
-async function onProductClick(event) {
-  const button = event.target.closest('.desserts-item-btn');
-
-  if (!button) {
-    return;
+  if (!data || typeof data !== 'object') {
+    return [];
   }
 
-  const dessertId = button.dataset.id;
+  const possibleArrays = [
+    data.desserts,
+    data.data,
+    data.items,
+    data.products,
+    data.results,
+    data.data?.desserts,
+    data.data?.items,
+    data.data?.products,
+    data.data?.results,
+  ];
 
-  if (!dessertId) {
-    return;
-  }
-
-  await openModal(dessertId);
+  return possibleArrays.find(Array.isArray) || [];
 }
 
-function getProductId(product) {
-  return product._id || product.id || '';
-}
+function addListeners() {
+  refs.prevBtn.addEventListener('click', onPrevBtnClick);
+  refs.nextBtn.addEventListener('click', onNextBtnClick);
+  refs.pagination.addEventListener('click', onPaginationClick);
+  refs.list.addEventListener('click', onDessertCardBtnClick);
 
-function getProductName(product) {
-  return product.name || product.title || 'Десерт';
-}
-
-function getProductCategory(product) {
-  const category = product.category || product.type || product.categoryName;
-
-  if (!category) {
-    return 'Десерти';
-  }
-
-  if (typeof category === 'string') {
-    return category;
-  }
-
-  if (typeof category === 'object') {
-    return (
-      category.name ||
-      category.title ||
-      category.value ||
-      category.label ||
-      category.slug ||
-      'Десерти'
-    );
-  }
-
-  return 'Десерти';
-}
-
-function getProductDescription(product) {
-  return (
-    product.description ||
-    product.shortDescription ||
-    product.text ||
-    'Соковитий десерт з натуральними інгредієнтами.'
+  window.addEventListener(
+    'resize',
+    debounce(() => {
+      updateSlider(false);
+    }, 150)
   );
 }
 
-function getProductImage(product) {
-  const image =
-    product.image ||
-    product.img ||
-    product.preview ||
-    product.photo ||
-    product.imageUrl ||
-    product.thumbnail ||
-    '';
-
-  if (typeof image === 'string') {
-    return image;
-  }
-
-  if (typeof image === 'object' && image !== null) {
-    return image.url || image.src || image.path || image.medium || image.large || '';
-  }
-
-  return '';
-}
-
-function getProductPrice(price) {
-  if (price === undefined || price === null || price === '') {
-    return '';
-  }
-
-  if (typeof price === 'object') {
-    const value = price.value || price.amount || '';
-
-    return value ? `${value} грн` : '';
-  }
-
-  return `${price} грн`;
-}
-
-function updateItemsPerView() {
-  const width = window.innerWidth;
-
-  if (width >= 1440) {
-    itemsPerView = 3;
-  } else if (width >= 768) {
-    itemsPerView = 2;
-  } else {
-    itemsPerView = 1;
-  }
-
-  maxIndex = Math.max(products.length - itemsPerView, 0);
-
-  if (currentIndex > maxIndex) {
-    currentIndex = maxIndex;
-  }
-}
-
-function updateSlider() {
-  const firstItem = refs.list.querySelector('.popular-products__item');
-
-  if (!firstItem) {
+function onPrevBtnClick() {
+  if (state.currentPage <= 0) {
     return;
   }
 
-  const itemWidth = firstItem.getBoundingClientRect().width;
-  const gap = getListGap(refs.list);
-  const offset = currentIndex * (itemWidth + gap);
-
-  refs.list.style.transform = `translateX(-${offset}px)`;
-
-  refs.prevBtn.disabled = currentIndex === 0;
-  refs.nextBtn.disabled = currentIndex === maxIndex;
-
-  updatePagination();
+  state.currentPage -= 1;
+  moveSlider();
 }
 
-function getListGap(element) {
-  const styles = window.getComputedStyle(element);
-
-  return parseFloat(styles.columnGap || styles.gap) || 0;
-}
-
-function onPrevClick() {
-  if (currentIndex === 0) {
+function onNextBtnClick() {
+  if (state.currentPage >= state.pagesCount - 1) {
     return;
   }
 
-  currentIndex -= 1;
-  updateSlider();
-}
-
-function onNextClick() {
-  if (currentIndex === maxIndex) {
-    return;
-  }
-
-  currentIndex += 1;
-  updateSlider();
-}
-
-function renderPagination() {
-  const pagesCount = maxIndex + 1;
-
-  refs.pagination.innerHTML = Array.from({ length: pagesCount }, (_, index) => {
-    return `
-      <li class="popular-products__pagination-item">
-        <button
-          class="popular-products__pagination-btn"
-          type="button"
-          data-popular-page="${index}"
-          aria-label="Перейти до слайду ${index + 1}"
-        ></button>
-      </li>
-    `;
-  }).join('');
+  state.currentPage += 1;
+  moveSlider();
 }
 
 function onPaginationClick(event) {
@@ -323,66 +136,274 @@ function onPaginationClick(event) {
     return;
   }
 
-  currentIndex = Number(button.dataset.popularPage);
-  updateSlider();
+  state.currentPage = Number(button.dataset.popularPage);
+  moveSlider();
 }
 
-function updatePagination() {
-  const buttons = refs.pagination.querySelectorAll('[data-popular-page]');
+function onDessertCardBtnClick(event) {
+  const button = event.target.closest('[data-dessert-id]');
 
-  buttons.forEach((button, index) => {
-    button.classList.toggle(
-      'popular-products__pagination-btn--active',
-      index === currentIndex
-    );
-  });
+  if (!button) {
+    return;
+  }
+
+  const dessertId = button.dataset.dessertId;
+
+  if (!dessertId) {
+    return;
+  }
+
+  openModal(dessertId);
 }
 
-function onResize() {
-  updateItemsPerView();
+function updateSlider(skipAnimation = false) {
+  const previousCardsPerPage = state.cardsPerPage;
+
+  state.cardsPerPage = getCardsPerPage();
+  state.pagesCount = Math.ceil(state.products.length / state.cardsPerPage);
+
+  if (previousCardsPerPage !== state.cardsPerPage) {
+    state.currentPage = 0;
+  }
+
+  if (state.currentPage > state.pagesCount - 1) {
+    state.currentPage = state.pagesCount - 1;
+  }
+
   renderPagination();
-  updateSlider();
+  moveSlider(skipAnimation);
 }
 
-function initSwipe() {
-  let startX = 0;
-  let currentX = 0;
-  let isSwiping = false;
+function getCardsPerPage() {
+  if (window.matchMedia('(min-width: 1440px)').matches) {
+    return 3;
+  }
 
-  refs.viewport.addEventListener('touchstart', event => {
-    startX = event.touches[0].clientX;
-    currentX = startX;
-    isSwiping = true;
-  });
+  if (window.matchMedia('(min-width: 768px)').matches) {
+    return 2;
+  }
 
-  refs.viewport.addEventListener('touchmove', event => {
-    if (!isSwiping) {
-      return;
+  return 1;
+}
+
+function moveSlider(skipAnimation = false) {
+  const firstCard = refs.list.querySelector('.popular-products__item');
+
+  if (!firstCard) {
+    return;
+  }
+
+  const styles = getComputedStyle(refs.list);
+  const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+  const cardWidth = firstCard.getBoundingClientRect().width;
+  const offset = state.currentPage * state.cardsPerPage * (cardWidth + gap);
+
+  refs.list.classList.toggle('is-not-animated', skipAnimation);
+  refs.list.style.transform = `translateX(-${offset}px)`;
+
+  updateControls();
+
+  if (skipAnimation) {
+    requestAnimationFrame(() => {
+      refs.list.classList.remove('is-not-animated');
+    });
+  }
+}
+
+function updateControls() {
+  const isFirstPage = state.currentPage === 0;
+  const isLastPage = state.currentPage >= state.pagesCount - 1;
+
+  refs.prevBtn.disabled = isFirstPage;
+  refs.nextBtn.disabled = isLastPage;
+
+  refs.prevBtn.classList.toggle('is-disabled', isFirstPage);
+  refs.nextBtn.classList.toggle('is-disabled', isLastPage);
+
+  refs.pagination
+    .querySelectorAll('[data-popular-page]')
+    .forEach((button, index) => {
+      const isActive = index === state.currentPage;
+
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-current', isActive ? 'true' : 'false');
+    });
+}
+
+function setControlsDisabled(disabled) {
+  refs.prevBtn.disabled = disabled;
+  refs.nextBtn.disabled = disabled;
+
+  refs.prevBtn.classList.toggle('is-disabled', disabled);
+  refs.nextBtn.classList.toggle('is-disabled', disabled);
+}
+
+function renderProducts(products) {
+  refs.list.innerHTML = products.map(createProductMarkup).join('');
+}
+
+function createProductMarkup(product) {
+  const id = getProductId(product);
+  const image = getProductImage(product);
+  const title = product.name || product.title || 'Десерт';
+  const category = getProductCategory(product);
+  const description = product.description || product.text || '';
+  const price = formatPrice(product.price);
+
+  return `
+    <li class="popular-products__item">
+      <article class="popular-products-card">
+        <img
+          class="popular-products-card__img"
+          src="${escapeHtml(image)}"
+          alt="${escapeHtml(title)}"
+          loading="lazy"
+        >
+
+        <p class="popular-products-card__category">${escapeHtml(category)}</p>
+
+        <h3 class="popular-products-card__title">${escapeHtml(title)}</h3>
+
+        <p class="popular-products-card__descr">${escapeHtml(description)}</p>
+
+        <div class="popular-products-card__bottom">
+          <p class="popular-products-card__price">${price}</p>
+
+          <button
+            class="popular-products-card__btn"
+            type="button"
+            data-dessert-id="${escapeHtml(id)}"
+            aria-label="Відкрити детальну інформацію про ${escapeHtml(title)}"
+            ${id ? '' : 'disabled'}
+          >
+            <svg
+              class="popular-products-card__btn-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M7 17L17 7M17 7H9M17 7V15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </article>
+    </li>
+  `;
+}
+
+function getProductId(product) {
+  return product._id || product.id || product.objectId || '';
+}
+
+function getProductCategory(product) {
+  const category = product.category || product.type;
+
+  if (typeof category === 'string') {
+    return category;
+  }
+
+  if (category && typeof category === 'object') {
+    return (
+      category.name ||
+      category.title ||
+      category.value ||
+      category.label ||
+      category.slug ||
+      'Популярне'
+    );
+  }
+
+  return 'Популярне';
+}
+
+function renderPagination() {
+  refs.pagination.innerHTML = Array.from(
+    { length: state.pagesCount },
+    (_, index) => `
+      <li class="popular-products__pagination-item">
+        <button
+          class="popular-products__pagination-btn"
+          type="button"
+          data-popular-page="${index}"
+          aria-label="Перейти до слайду ${index + 1}"
+        ></button>
+      </li>
+    `
+  ).join('');
+}
+
+function renderMessage(message) {
+  refs.list.innerHTML = `
+    <li class="popular-products__message">
+      ${escapeHtml(message)}
+    </li>
+  `;
+
+  refs.pagination.innerHTML = '';
+  setControlsDisabled(true);
+}
+
+function getProductImage(product) {
+  const image =
+    product.image ||
+    product.img ||
+    product.photo ||
+    product.thumb ||
+    product.picture ||
+    product.images;
+
+  let imageUrl = '';
+
+  if (typeof image === 'string') {
+    imageUrl = image;
+  }
+
+  if (Array.isArray(image)) {
+    const firstImage = image[0];
+
+    if (typeof firstImage === 'string') {
+      imageUrl = firstImage;
+    } else if (firstImage && typeof firstImage === 'object') {
+      imageUrl = firstImage.url || firstImage.src || '';
     }
+  }
 
-    currentX = event.touches[0].clientX;
-  });
+  if (image && typeof image === 'object' && !Array.isArray(image)) {
+    imageUrl =
+      image.desktop ||
+      image.tablet ||
+      image.mobile ||
+      image.url ||
+      image.src ||
+      Object.values(image).find(value => typeof value === 'string') ||
+      '';
+  }
 
-  refs.viewport.addEventListener('touchend', () => {
-    if (!isSwiping) {
-      return;
-    }
+  if (imageUrl.startsWith('/')) {
+    return `${API_ORIGIN}${imageUrl}`;
+  }
 
-    const diff = startX - currentX;
-    const minSwipeDistance = 50;
+  return imageUrl;
+}
 
-    if (Math.abs(diff) >= minSwipeDistance) {
-      if (diff > 0) {
-        onNextClick();
-      } else {
-        onPrevClick();
-      }
-    }
+function formatPrice(price) {
+  if (typeof price === 'number') {
+    return `${price} грн`;
+  }
 
-    startX = 0;
-    currentX = 0;
-    isSwiping = false;
-  });
+  if (typeof price === 'string' && price.trim()) {
+    return price.includes('грн') ? escapeHtml(price) : `${escapeHtml(price)} грн`;
+  }
+
+  return 'Ціну уточнюйте';
 }
 
 function escapeHtml(value) {
@@ -392,4 +413,13 @@ function escapeHtml(value) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
+}
+
+function debounce(callback, delay) {
+  let timeoutId;
+
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback(...args), delay);
+  };
 }

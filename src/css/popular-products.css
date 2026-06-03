@@ -1,35 +1,24 @@
-
-.popular-products,
-.popular-products *,
-.popular-products *::before,
-.popular-products *::after {
-  box-sizing: border-box;
-}
-
 .popular-products {
-  padding-top: 48px;
-  padding-bottom: 64px;
-  background-color: #f3ffff;
+  padding: 64px 0 40px;
 }
 
 .popular-products__container {
-  width: 100%;
-  max-width: 526px;
-  margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  position: relative;
 }
 
 .popular-products__title {
-  margin: 0 0 24px;
-
+  margin: 0 0 40px;
   font-family: 'Comfortaa', sans-serif;
   font-weight: 700;
-  font-size: 28px;
+  font-size: 36px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-
+  text-align: left;
   color: #080c0c;
+}
+
+.popular-products__title br {
+  display: none;
 }
 
 .popular-products__viewport {
@@ -39,329 +28,441 @@
 
 .popular-products__list {
   display: flex;
-  align-items: stretch;
-  gap: 12px;
-
-  margin: 0;
+  gap: 32px;
   padding: 0;
-
+  margin: 0;
   list-style: none;
-
-  transition: transform 250ms ease;
+  transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
+}
+
+.popular-products__list.is-not-animated {
+  transition: none;
 }
 
 .popular-products__item {
   display: flex;
-
-  flex: 0 0 calc((100% - 12px) / 2);
-  min-width: 0;
-  max-width: none;
-
-  list-style: none;
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
-/* Dessert card reused safely only inside popular-products */
-
-.popular-products .dessert-list-item {
-  display: flex !important;
-  flex-direction: column !important;
-
-  width: 100% !important;
-  max-width: none !important;
-  min-width: 0 !important;
-  flex-basis: auto !important;
-  flex-grow: 1 !important;
-
-  min-height: 344px !important;
-  height: auto !important;
-  padding: 10px !important;
-
-  border: 1px solid #080c0c !important;
-  border-radius: 10px !important;
-  background-color: #f5fdfd !important;
-
-  overflow: visible !important;
+.popular-products-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 392px;
+  padding: 16px;
+  border: 1px solid #080c0c;
+  border-radius: 16px;
+  background-color: #f5fdfd;
 }
 
-.popular-products .desserts-list-img {
-  display: block !important;
-
-  width: 100% !important;
-  height: 158px !important;
-  margin: 0 0 10px !important;
-
-  border-radius: 6px !important;
-
-  object-fit: cover !important;
+.popular-products-card__img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
-.popular-products .desserts-item-categorie {
-  margin: 0 0 8px !important;
-
-  min-height: 11px !important;
-
-  font-weight: 400 !important;
-  font-size: 9px !important;
-  line-height: 1.2 !important;
-
-  color: #080c0c !important;
+.popular-products-card__category {
+  min-height: 21px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #080c0c;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.popular-products .desserts-item-title {
-  margin: 0 0 8px !important;
-
-  min-height: 32px !important;
-
-  font-weight: 600 !important;
-  font-size: 13px !important;
-  line-height: 1.2 !important;
-
-  color: #080c0c !important;
+.popular-products-card__title {
+  min-height: 54px;
+  margin: 0 0 8px;
+  display: -webkit-box;
+  overflow: hidden;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #080c0c;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.popular-products .desserts-item-descr {
-  margin: 0 0 12px !important;
-
-  min-height: 38px !important;
-
-  font-weight: 400 !important;
-  font-size: 10px !important;
-  line-height: 1.25 !important;
-
-  color: #080c0c !important;
+.popular-products-card__descr {
+  min-height: 42px;
+  margin: 0 0 16px;
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #080c0c;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.popular-products .dessert-card-bottom {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 12px !important;
-
-  margin-top: auto !important;
+.popular-products-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
 }
 
-.popular-products .desserts-item-price {
-  margin: 0 !important;
-
-  font-weight: 600 !important;
-  font-size: 14px !important;
-  line-height: 1.5 !important;
-
-  color: #080c0c !important;
+.popular-products-card__price {
+  margin: 0;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #080c0c;
 }
 
-.popular-products .desserts-item-btn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
-
-  width: 32px !important;
-  height: 32px !important;
-  padding: 6px !important;
-
-  border: 1px solid #080c0c !important;
-  border-radius: 100px !important;
-  background-color: transparent !important;
-
-  color: #080c0c !important;
-  cursor: pointer !important;
-
+.popular-products-card__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border: 2px solid #080c0c;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #080c0c;
+  cursor: pointer;
   transition:
     background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.popular-products .desserts-item-btn:hover,
-.popular-products .desserts-item-btn:focus {
-  background-color: #f19898 !important;
+.popular-products-card__btn:hover,
+.popular-products-card__btn:focus-visible {
+  background-color: #f19898;
+  border-color: #080c0c;
 }
 
-.popular-products .desserts-item-btn:active {
-  background-color: #c07979 !important;
+.popular-products-card__btn:active {
+  background-color: #c07979;
+  transform: scale(0.96);
 }
 
-.popular-products .desserts-item-btn:disabled {
-  border-color: #9da3a3 !important;
-  background-color: transparent !important;
-  color: #9da3a3 !important;
-  cursor: not-allowed !important;
-  opacity: 1 !important;
-  pointer-events: none !important;
+.popular-products-card__btn:disabled {
+  border-color: #9ca3a3;
+  color: #9ca3a3;
+  cursor: not-allowed;
 }
 
-.popular-products .desserts-item-btn svg {
-  width: 18px !important;
-  height: 18px !important;
+.popular-products-card__btn-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
 }
 
 .popular-products__controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  margin-top: 24px;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
 }
 
 .popular-products__pagination {
   display: flex;
   align-items: center;
-  gap: 6px;
-
-  margin: 0;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 8px;
+  height: 8px;
   padding: 0;
-
+  margin: 0;
   list-style: none;
 }
 
 .popular-products__pagination-item {
   display: flex;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
 }
 
 .popular-products__pagination-btn {
   display: block;
-
   width: 8px;
+  min-width: 8px;
   height: 8px;
   padding: 0;
-
   border: none;
   border-radius: 50%;
-  background-color: #c8d0d0;
-
+  background-color: #d9d9d9;
   cursor: pointer;
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.popular-products__pagination-btn--active {
+.popular-products__pagination-btn.is-active {
   background-color: #080c0c;
+}
+
+.popular-products__pagination-btn:hover,
+.popular-products__pagination-btn:focus-visible {
+  background-color: #007aff;
+}
+
+.popular-products__pagination-btn:active {
+  transform: scale(0.9);
 }
 
 .popular-products__buttons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .popular-products__btn {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 44px;
   height: 44px;
   padding: 0;
-
   border: 2px solid #080c0c;
   border-radius: 50%;
   background-color: transparent;
-
-  font-size: 22px;
-  line-height: 1;
-
   color: #080c0c;
-
+  font-size: 24px;
+  line-height: 1;
   cursor: pointer;
-
   transition:
-    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .popular-products__btn:hover:not(:disabled),
-.popular-products__btn:focus:not(:disabled) {
+.popular-products__btn:focus-visible:not(:disabled) {
   background-color: #f19898;
   border-color: #080c0c;
-  color: #080c0c;
 }
 
 .popular-products__btn:active:not(:disabled) {
   background-color: #c07979;
-  border-color: #080c0c;
+  transform: scale(0.96);
+}
+
+.popular-products__btn:disabled,
+.popular-products__btn.is-disabled {
+  border-color: #9ca3a3;
+  color: #9ca3a3;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.popular-products__btn-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.popular-products__message {
+  width: 100%;
+  padding: 24px;
+  border: 1px solid #080c0c;
+  border-radius: 16px;
+  background-color: #f5fdfd;
+  text-align: center;
   color: #080c0c;
 }
 
-.popular-products__btn:disabled {
-  background-color: transparent;
-  border-color: #9da3a3;
-  color: #9da3a3;
-  cursor: not-allowed;
-  opacity: 1;
-  pointer-events: none;
-}
-
-/* Mobile: 1 card */
-
 @media only screen and (max-width: 767px) {
+  .popular-products {
+    padding-top: 64px;
+    padding-bottom: 40px;
+  }
+
   .popular-products__container {
+    width: 100%;
     max-width: 375px;
     padding-left: 20px;
     padding-right: 20px;
+    margin: 0 auto;
   }
 
   .popular-products__title {
-    max-width: 260px;
+    width: 335px;
+    max-width: 335px;
+    margin: 0 0 24px;
     font-size: 32px;
+    line-height: 1.2;
+    text-align: left;
   }
 
-  .popular-products__item {
-    flex: 0 0 100%;
+  .popular-products__title br {
+    display: block;
   }
 
-  .popular-products .dessert-list-item {
-    min-height: 294px !important;
-  }
-
-  .popular-products .desserts-list-img {
-    height: 156px !important;
-  }
-}
-
-/* Tablet: 2 compact cards */
-
-@media only screen and (min-width: 768px) and (max-width: 1439px) {
-  .popular-products__container {
-    max-width: 526px;
-    padding-left: 20px;
-    padding-right: 20px;
+  .popular-products__viewport {
+    width: 335px;
+    max-width: 335px;
+    margin: 0;
+    overflow: hidden;
   }
 
   .popular-products__list {
-    gap: 12px;
+    gap: 32px;
   }
 
   .popular-products__item {
-    flex: 0 0 calc((100% - 12px) / 2);
+    flex: 0 0 335px;
+    max-width: 335px;
   }
 
-  .popular-products .dessert-list-item {
-    max-width: none !important;
-    flex-basis: auto !important;
-    min-height: 344px !important;
+  .popular-products-card {
+    width: 335px;
+    max-width: 335px;
+    min-height: 390px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .popular-products-card__img {
+    height: 245px;
+  }
+
+  .popular-products-card__category {
+    min-height: auto;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .popular-products-card__title {
+    min-height: auto;
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .popular-products-card__descr {
+    min-height: 36px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .popular-products-card__price {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .popular-products-card__btn {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    flex-shrink: 0;
+  }
+
+  .popular-products-card__btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .popular-products__controls {
+    width: 335px;
+    max-width: 335px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .popular-products__pagination {
+    width: auto;
+    max-width: 180px;
+    height: 8px;
+    overflow: hidden;
+  }
+
+  .popular-products__buttons {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .popular-products__btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .popular-products__btn-icon {
+    width: 20px;
+    height: 20px;
   }
 }
 
-/* Desktop: 3 cards */
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+  .popular-products {
+    padding-top: 48px;
+    padding-bottom: 40px;
+  }
+
+  .popular-products__title {
+    margin: 0 0 32px;
+    font-size: 32px;
+    text-align: left;
+  }
+
+  .popular-products__title br {
+    display: none;
+  }
+
+  .popular-products__list {
+    gap: 16px;
+  }
+
+  .popular-products__item {
+    flex: 0 0 calc((100% - 16px) / 2);
+    max-width: calc((100% - 16px) / 2);
+  }
+
+  .popular-products-card {
+    min-height: 440px;
+  }
+
+  .popular-products__controls {
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+}
 
 @media only screen and (min-width: 1440px) {
   .popular-products {
     padding-top: 80px;
-    padding-bottom: 80px;
-  }
-
-  .popular-products__container {
-    max-width: 1312px;
-    padding-left: 0;
-    padding-right: 0;
+    padding-bottom: 56px;
   }
 
   .popular-products__title {
-    margin-bottom: 40px;
-
+    margin: 0 0 40px;
     font-size: 48px;
-    line-height: 1.2;
+    text-align: left;
+  }
+
+  .popular-products__title br {
+    display: none;
+  }
+
+  .popular-products__viewport {
+    max-width: 1312px;
+    margin: 0 auto;
   }
 
   .popular-products__list {
@@ -370,64 +471,20 @@
 
   .popular-products__item {
     flex: 0 0 calc((100% - 48px) / 3);
+    max-width: calc((100% - 48px) / 3);
   }
 
-  .popular-products .dessert-list-item {
-    max-width: none !important;
-    flex-basis: auto !important;
-    min-height: 431px !important;
-    padding: 16px !important;
-
-    border-radius: 16px !important;
+  .popular-products-card {
+    min-height: 431px;
   }
 
-  .popular-products .desserts-list-img {
-    height: auto !important;
-    margin-bottom: 0 !important;
-
-    border-radius: 8px !important;
+  .popular-products-card__img {
+    height: 230px;
   }
 
-  .popular-products .desserts-item-categorie {
-    margin-top: 16px !important;
-    margin-bottom: 12px !important;
-
-    min-height: auto !important;
-
-    font-size: 14px !important;
-    line-height: 1.5 !important;
-  }
-
-  .popular-products .desserts-item-title {
-    margin-bottom: 4px !important;
-
-    min-height: auto !important;
-
-    font-size: 18px !important;
-    line-height: 1.5 !important;
-  }
-
-  .popular-products .desserts-item-descr {
-    min-height: auto !important;
-
-    font-size: 14px !important;
-    line-height: 1.5 !important;
-  }
-
-  .popular-products .desserts-item-price {
-    font-size: 20px !important;
-  }
-
-  .popular-products .desserts-item-btn {
-    width: 44px !important;
-    height: 44px !important;
-    padding: 10px !important;
-
-    border: 2px solid #080c0c !important;
-  }
-
-  .popular-products .desserts-item-btn svg {
-    width: 24px !important;
-    height: 24px !important;
+  .popular-products__controls {
+    max-width: 1312px;
+    margin: 40px auto 0;
+    justify-content: space-between;
   }
 }
